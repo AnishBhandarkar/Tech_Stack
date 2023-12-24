@@ -1,0 +1,34 @@
+package com.practice;
+
+import java.util.*;
+public class Prac2 {
+	//Using HashSet ==> O(n)
+	public static void duplicates(ArrayList<Integer> arr) {
+		HashSet<Integer> set = new HashSet<>();
+		for(int i=0;i<arr.size();i++) {
+			set.add(arr.get(i));
+		}
+		System.out.println(set);
+	}
+	
+	//Using Hashmap O(n)
+	public static void duplicates1(ArrayList<Integer> arr) {
+		Map<Integer, Integer> map = new HashMap<>();
+		for(int i=0;i<arr.size();i++) {
+			if(map.containsKey(arr.get(i))) {
+				map.put(arr.get(i), map.get(arr.get(i))+1);
+			}
+			else {
+				map.put(arr.get(i), 1);
+			}
+		}
+		for(Map.Entry m:map.entrySet()) {
+			System.out.print(m.getKey()+" ");
+		}	
+	}
+	
+	public static void main(String[] args) {
+		ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(1, 2, 3, 2, 4, 5, 4, 6, 5, 5, 6));
+		duplicates(arr);
+	}
+}

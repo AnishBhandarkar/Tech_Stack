@@ -1,0 +1,76 @@
+package com.practice;
+
+class Stack{
+	private int stk[];
+	private int size;
+	private int top=-1;
+	Stack(int size){
+		this.size = size;
+		stk = new int[size];
+	}
+	
+	public void push(int data) {
+		if(top==size-1) {
+			System.out.println("Full");
+			return;
+		}
+		stk[++top] = data;
+	}
+	
+	public int pop() {
+		if(top==-1) {
+			return -1;
+		}
+		int data = stk[top];
+		top--;
+		return data;
+	}
+	
+	public boolean isEmpty() {
+		if(top==-1) {
+			return true;
+		}
+		return false;
+	}
+	
+	public int getTop() {
+		if(top==-1) {
+			return -1;
+		}
+		return stk[top];
+	}
+	
+	public void display() {
+		if(top==-1) {
+			System.out.println("Empty");
+			return;
+		}
+		int i = 0;
+		while(i != top) {
+			System.out.print(stk[i]+" ");
+			i++;
+		}
+		System.out.println(stk[top]);
+	}
+}
+
+
+public class Practice1{
+	public static void main(String[] args) {
+		Stack s = new Stack(10);
+		s.push(10);
+		s.push(20);
+		s.push(30);
+		s.push(40);
+		s.display();
+		System.out.println(s.pop());
+		System.out.println(s.isEmpty());
+		System.out.println(s.getTop());
+		s.display();
+	}
+}
+
+
+
+
+

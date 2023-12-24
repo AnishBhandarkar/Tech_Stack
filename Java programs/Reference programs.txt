@@ -1,0 +1,341 @@
+1.1) Example of Local variable
+-------------------------------
+public class VariableExample {
+   // instance variable
+   public String myVar="instance variable";
+    
+   public void myMethod(){
+    	// local variable
+    	String myVar = "Inside Method";
+    	System.out.println(myVar);
+   }
+   public static void main(String args[]){
+      // Creating object
+      VariableExample obj = new VariableExample();
+    	
+      /* We are calling the method, that changes the 
+       * value of myVar. We are displaying myVar again after 
+       * the method call, to demonstrate that the local 
+       * variable scope is limited to the method itself.
+       */
+      System.out.println("Calling Method");
+      obj.myMethod();
+      System.out.println(obj.myVar);
+   }
+}
+
+Output:
+
+Calling Method
+Inside Method
+instance variable
+
+Note:
+-----
+If I hadn’t declared the instance variable and only declared the local variable inside method then the statement System.out.println(obj.myVar); would have thrown compilation error. As you cannot change and access local variables outside the method.
+
+
+1.2 Example of static variable
+-------------------------------
+public class StaticVarExample {
+   public static String myClassVar="class or static variable";
+	
+   public static void main(String args[]){
+      StaticVarExample obj = new StaticVarExample();
+      StaticVarExample obj2 = new StaticVarExample();
+      StaticVarExample obj3 = new StaticVarExample();
+      
+      //All three will display "class or static variable"
+      System.out.println(obj.myClassVar);
+      System.out.println(obj2.myClassVar);
+      System.out.println(obj3.myClassVar);
+
+      //changing the value of static variable using obj2
+      obj2.myClassVar = "Changed Text";
+
+      //All three will display "Changed Text"
+      System.out.println(obj.myClassVar);
+      System.out.println(obj2.myClassVar);
+      System.out.println(obj3.myClassVar);
+   }
+}
+
+Output:
+
+class or static variable
+class or static variable
+class or static variable
+Changed Text
+Changed Text
+Changed Text
+
+
+1.3  Example of Instance variable
+----------------------------------
+public class InstanceVarExample {
+   String myInstanceVar="instance variable";
+	
+   public static void main(String args[]){
+	InstanceVarExample obj = new InstanceVarExample();
+	InstanceVarExample obj2 = new InstanceVarExample();
+	InstanceVarExample obj3 = new InstanceVarExample();
+		
+	System.out.println(obj.myInstanceVar);
+	System.out.println(obj2.myInstanceVar);
+	System.out.println(obj3.myInstanceVar);
+
+		
+	obj2.myInstanceVar = "Changed Text";
+
+		
+	System.out.println(obj.myInstanceVar);
+	System.out.println(obj2.myInstanceVar);
+	System.out.println(obj3.myInstanceVar);
+   }
+}
+
+Output:
+
+instance variable
+instance variable
+instance variable
+instance variable
+Changed Text
+instance variable
+
+1.4 Example with break statement
+---------------------------------
+public class SwitchCaseExample {
+
+   public static void main(String args[]){
+      int i=2;
+      switch(i)
+      {
+	 case 1:
+	   System.out.println("Case1 ");
+	   break;
+	 case 2:
+	   System.out.println("Case2 ");
+	   break;
+	 case 3:
+	   System.out.println("Case3 ");
+	   break;
+	 case 4:
+           System.out.println("Case4 ");
+           break;
+	 default:
+	   System.out.println("Default ");
+      }
+   }
+}
+
+Output:
+
+Case2
+
+
+1.5 Constructor Chaining Example
+---------------------------------
+class Employee
+{   
+    public String empName;
+    public int empSalary;
+    public String address;
+
+    //default constructor of the class
+    public Employee()
+    {
+    	//this will call the constructor with String param
+        this("Chaitanya");
+    }
+
+    public Employee(String name)
+    {
+    	//call the constructor with (String, int) param
+    	this(name, 120035);
+    }
+    public Employee(String name, int sal)
+    {
+    	//call the constructor with (String, int, String) param
+    	this(name, sal, "Gurgaon");
+    }
+    public Employee(String name, int sal, String addr)
+    {
+    	this.empName=name;
+    	this.empSalary=sal;
+    	this.address=addr;
+    }
+
+    void disp() {
+    	System.out.println("Employee Name: "+empName);
+    	System.out.println("Employee Salary: "+empSalary);
+    	System.out.println("Employee Address: "+address);
+    }
+    public static void main(String[] args)
+    {
+        Employee obj = new Employee();
+        obj.disp();
+    }
+}
+
+Output:
+
+Employee Name: Chaitanya
+Employee Salary: 120035
+Employee Address: Gurgaon
+
+
+1.6 Example of Copy Constructor
+---------------------------------
+CopyConstructorExample.java
+
+    public class Fruit  
+    {  
+    private double fprice;  
+    private String fname;  
+    //constructor to initialize roll number and name of the student  
+    Fruit(double fPrice, String fName)  
+    {   
+    fprice = fPrice;  
+    fname = fName;  
+    }  
+    //creating a copy constructor  
+    Fruit(Fruit fruit)  
+    {  
+    System.out.println("\nAfter invoking the Copy Constructor:\n");  
+    fprice = fruit.fprice;  
+    fname = fruit.fname;  
+    }  
+    //creating a method that returns the price of the fruit  
+    double showPrice()  
+    {  
+    return fprice;  
+    }  
+    //creating a method that returns the name of the fruit  
+    String showName()  
+    {  
+    return fname;  
+    }  
+    //class to create student object and print roll number and name of the student  
+    public static void main(String args[])  
+    {  
+    Fruit f1 = new Fruit(399, "Ruby Roman Grapes");  
+    System.out.println("Name of the first fruit: "+ f1.showName());  
+    System.out.println("Price of the first fruit: "+ f1.showPrice());  
+    //passing the parameters to the copy constructor  
+    Fruit f2 = new Fruit(f1);  
+    System.out.println("Name of the second fruit: "+ f2.showName());  
+    System.out.println("Price of the second fruit: "+ f2.showPrice());  
+    }  
+    }  
+
+Output:
+
+Name of the first fruit: Ruby Roman Grapes
+Price of the first fruit: 399.0
+
+After invoking the Copy Constructor:
+
+Name of the second fruit: Ruby Roman Grapes
+Price of the second fruit: 399.0
+
+1.7  Private Constructor
+------------------------
+The use of private constructor is to serve singleton classes. A singleton class is one which limits the number of objects creation to one. Using private constructor we can ensure that no more than one object can be created at a time. By providing a private constructor you prevent class instances from being created in any place other than this very class. We will see in the below example how to use private constructor for limiting the number of objects for a singleton class.
+
+Example of Private Constructor
+-------------------------------
+public class SingleTonClass {
+   //Static Class Reference
+   private static SingleTonClass obj=null;
+   private SingleTonClass(){
+      /*Private Constructor will prevent 
+       * the instantiation of this class directly*/
+   }
+   public static SingleTonClass objectCreationMethod(){
+	/*This logic will ensure that no more than
+	 * one object can be created at a time */
+	if(obj==null){
+	    obj= new SingleTonClass();
+	}
+        return obj;
+   }
+   public void display(){
+	System.out.println("Singleton class Example");
+   }
+   public static void main(String args[]){
+	//Object cannot be created directly due to private constructor 
+        //This way it is forced to create object via our method where
+        //we have logic for only one object creation
+	SingleTonClass myobject= SingleTonClass.objectCreationMethod();
+	myobject.display();
+   }
+}
+
+Output:
+
+Singleton class Example
+
+1.8 Static blocks:
+-------------------
+public class StaticDemo{
+    static{
+        System.out.println("static block of parent class");
+    }
+}
+public class StaticDemoChild extends StaticDemo{
+    static{
+        System.out.println("static block of child class");
+    }
+    public void display()
+    {
+        System.out.println("Just a method of child class");
+    }
+    public static void main(String args[])
+    {
+        StaticDemoChild obj = new StaticDemoChild();
+        obj.display();
+    }
+}
+
+Output:
+static block of parent class
+static block of child class
+Just a method of child class
+
+1.9: Multiple Static blocks
+--------------------------------------
+Lets see how multiple static blocks work in Java. They execute in the given order which means the first static block executes before second static block. That’s the reason, values initialized by first block are overwritten by second block.
+
+class JavaExample2{
+   static int num;
+   static String mystr;
+   //First Static block
+   static{
+      System.out.println("Static Block 1");
+      num = 68;
+      mystr = "Block1";
+  } 
+  //Second static block
+  static{
+      System.out.println("Static Block 2");
+      num = 98;
+      mystr = "Block2";
+  }
+  public static void main(String args[])
+  {
+      System.out.println("Value of num: "+num);
+      System.out.println("Value of mystr: "+mystr);
+   }
+}
+
+Output:
+
+Static Block 1
+Static Block 2
+Value of num: 98
+Value of mystr: Block2
+
+
+
+2.0

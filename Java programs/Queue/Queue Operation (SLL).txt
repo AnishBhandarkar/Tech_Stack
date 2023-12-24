@@ -1,0 +1,109 @@
+package com.practice;
+
+/*
+front : end from where node is deleted
+rear : end from where node is inserted
+*/
+
+
+class Queue{
+	Node front;
+	Node rear;
+	int count;
+	
+	private class Node{
+		private int data;
+		private Node next;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	Queue(){
+		front=null;
+		rear=null;
+		count=0;
+	}
+	
+	public void enQueue(int data) {
+		Node node = new Node(data);
+		if(rear==null) {
+			front=node;
+			rear=node;
+			count++;
+			return;
+		}
+		rear.next = node;
+		rear = node;
+		count++;
+	}
+	
+	public int deQueue() {
+		if(front==null) {
+			return -1;
+		}
+		int data = front.data;
+		if(front.next==null) {
+			front=null;
+			rear=null;
+			return data;
+		}
+		front=front.next;
+		count--;
+		return data;
+	}
+	
+	public void size() {
+		System.out.println(count);
+	}
+	
+	public void display() {
+		if(front==null) {
+			System.out.println("Empty");
+			return;
+		}
+		Node temp = front;
+		while(temp!=null) {
+			System.out.print(temp.data+" ");
+			temp = temp.next;
+		}
+		System.out.println();
+	}
+	
+	public boolean isEmpty() {
+		if(front==null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public int getFront() {
+		return front.data;
+	}
+	
+	public int getRear() {
+		return rear.data;
+	}
+}
+
+public class Practice1{
+	public static void main(String[] args) {
+		Queue que = new Queue();
+		que.enQueue(19);
+		que.enQueue(39);
+		que.enQueue(49);
+		que.enQueue(69);
+		que.enQueue(89);
+		que.display();
+		que.size();
+		System.out.println(que.deQueue());
+		que.display();
+		que.size();
+	}
+}
+
+
+
+
+

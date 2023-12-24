@@ -1,0 +1,12 @@
+1)Only in DLL and in CLL
+===============================
+insertion anddeletion at given position reqires countNodes() function
+Insertion : [pos == countNodes() + 1] (in both cll and dll)
+Deletion : [pos == countNodes()] (in both cll and dll)
+
+
+2)In CLL
+=========
+countNodes() function is bit deifferent
+
+

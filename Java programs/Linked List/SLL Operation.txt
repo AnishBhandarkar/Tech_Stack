@@ -1,0 +1,223 @@
+package com.practice;
+
+import java.util.Scanner;
+import java.util.Arrays;
+
+class LL{
+	Node head;
+	Node tail;
+	
+	private class Node{
+		private int data;
+		private Node next;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void addFirst(int data) {
+		Node node = new Node(data);
+		node.next = head;
+		head=node;
+		
+		if(tail==null) {
+			tail=head;
+		}
+	}
+	
+	public void addLast(int data) {
+		Node node = new Node(data);
+		if(tail==null) {
+			head=node;
+			tail=node;
+			return;
+		}
+		tail.next=node;
+		tail=node;
+	}
+	
+	public void add(int data, int pos) {
+		if(pos<1 || pos > count()+1) {
+			System.out.println("Invalid position");
+			return;
+		}
+		Node node = new Node(data);
+		if(pos==1) {
+			addFirst(data);
+			return;
+		}
+		Node temp=head;
+		for(int i=1;i<pos-1;i++) {
+			temp = temp.next;
+		}
+		node.next = temp.next;
+		temp.next = node;
+	}
+	
+	public void display() {
+		Node temp = head;
+		while(temp != null) {
+			System.out.print(temp.data+" --> ");
+			temp = temp.next;
+		}
+		System.out.println("NULL");
+	}
+	
+	public int count() {
+		Node temp = head;
+		int size=0;
+		while(temp != null) {
+			size++;
+			temp = temp.next;
+		}
+		return size;
+	}
+	
+	public void deleteFirst() {
+		if(head == null) {
+			System.out.println("No node to delete");
+			return;
+		}
+		if(head.next == null) {
+			head=null;
+			tail=null;
+			return;
+		}
+		head = head.next;
+	}
+	
+	public void deleteLast() {
+		if(tail==null) {
+			System.out.println("No node to delete");
+			return;
+		}
+		if(head.next==null) {
+			head = null;
+			tail=null;
+			return;
+		}
+		Node temp = head;
+		while(temp.next.next != null) {
+			temp = temp.next;
+		}
+		temp.next = null;
+		tail = temp;
+	}
+	
+	public void delete(int pos) {
+		if(pos<1 || pos > count()) {
+			System.out.println("Invalid position");
+			return;
+		}
+		if(pos==1) {
+			deleteFirst();
+			return;
+		}
+		Node temp = head;
+		Node ctemp = null;
+		for(int i=1;i<pos;i++) {
+			ctemp = temp;
+			temp = temp.next;
+		}
+		ctemp.next = temp.next;
+		temp.next = null;
+	}
+
+	public void reverseIter() {
+		if(count()<2 || count() < 1) {
+			return;
+		}
+		tail = head;
+		Node prev = null;
+		Node curr = head;
+		Node next=curr.next;
+		while(curr != null) {
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+			if(next!=null) {
+				next=next.next;
+			}
+		}
+		head = prev;
+	}
+
+	public void reverseRec(Node node) {
+		if(node==tail) {
+			head=tail;
+			return;
+		}
+		reverseRec(node.next);
+		tail.next=node;
+		node.next=null;
+		tail=node;
+	}
+
+	public void search(int data) {
+		if(head==null) {
+			System.out.println("Not found");
+			return;
+		}
+		Node temp = head;
+		while(temp!=null) {
+			if(data == temp.data) {
+				System.out.println("Found");
+				return;
+			}
+			temp = temp.next;
+		}
+		System.out.println("Not found");
+	}
+	
+	public void middleNodeData() {
+		if(head==null) {
+			return;
+		}
+		if(head.next==null) {
+			System.out.println(head.data);
+			return;
+		}
+		int mid = (int)Math.ceil(count()/2.0);
+		Node temp=head;
+		for(int i=1;i<mid;i++) {
+			temp=temp.next;
+		}
+		System.out.println(temp.data);
+	}
+}
+
+public class Practice1{
+	public static void main(String[] args) {
+		LL list = new LL();
+//		list.deleteLast();
+//		list.addLast(1000);
+//		list.deleteLast();
+		list.addFirst(12);
+		list.addFirst(13);
+		list.addFirst(14);
+		list.addFirst(15);
+		list.addLast(100);
+		list.addLast(130);
+//		list.display();
+//		list.count();
+//		list.deleteFirst();
+//		list.count();
+//		list.addFirst(99);
+//		list.deleteLast();
+//		list.addLast(140);
+		list.display();
+		list.delete(6);
+		list.display();
+//		list.add(100, 5);
+//		li.reverseRec(li.head);
+		li.reverseIter();
+//		list.display();
+	}
+	
+}
+
+
+
+
+

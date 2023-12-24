@@ -1,0 +1,222 @@
+//DLL
+import java.util.*;
+
+class DLL{
+	Node head;
+	Node tail;
+
+	private class Node{
+		int data;
+		Node next;
+		Node prev;
+		Node(int data){
+			this.data = data;
+		}
+	}
+
+	public void insertStart(int data){
+		Node node = new Node(data);
+		if(head == null){
+			head = tail = node;
+		}
+		else{
+			node.next = head;
+			head.prev = node;
+			head = node;
+		}
+	}
+
+	public void display(){
+		if(head == null){
+			System.out.println("Empty");
+			return;
+		}
+		Node temp = head;
+		while(temp != null){
+			System.out.print(temp.data+" <--> ");
+			temp = temp.next;
+		}
+		System.out.print("null\n");
+	}
+
+	public int size(){
+		int count = 0;
+		if(head == null){
+			return count;
+		}
+		Node temp = head;
+		while(temp != null){
+			count++;
+			temp = temp.next;
+		}
+		return count;
+	}
+
+	public void backwardDisplay(){
+		if(head == null){
+			System.out.println("Empty");
+			return;
+		}
+		Node temp = tail;
+		while(temp != null){
+			System.out.print(temp.data+" <--> ");
+			temp = temp.prev;
+		}
+		System.out.print("null\n");
+	}
+
+	public void insertEnd(int data){
+		Node node = new Node(data);
+		if(head == null){
+			head = tail = node;
+		}
+		else{
+			tail.next = node;
+			node.prev = tail;
+			tail = node;
+		}
+	}
+
+	public void insert(int data, int pos){
+		Node node = new Node(data);
+		if(pos == 1){
+			if(head == null){
+				head = tail = node;
+			}
+			else{
+				node.next = head;
+				head.prev = node;
+				head = node;
+			}
+		}
+		else if(pos == size()+1){
+			tail.next = node;
+			node.prev = tail;
+			tail = node;
+		}
+		else{
+			Node temp = head;
+			for(int i = 0;i<pos-2;i++){
+				temp = temp.next;
+			}
+			node.next = temp.next;
+			node.prev = temp;
+			temp.next.prev = node;
+			temp.next = node;
+		}
+	}
+
+	public void deleteStart(){
+		if(head == null){
+			System.out.println("Empty");
+			return;
+		}
+		if(head.next == null){
+			head = tail = null;
+			return;
+		}
+		else{
+			head = head.next;
+			head.prev = null;
+		}
+	}
+
+	public void deleteEnd(){
+		if(head == null){
+			return;
+		}
+		if(head.next == null){
+			head = tail = null;
+		}
+		else{
+			Node temp = head;
+			while(temp.next.next != null){
+				temp = temp.next;
+			}
+			temp.next = null;
+		}
+	}
+
+	public void delete(int pos){
+		if(pos < 0 || pos > size()){
+			System.out.println("Invalid position");
+			return;
+		}
+		if(pos == 1){
+			if(head.next == null){
+				head = tail = null;
+			}
+			else{
+				head = head.next;
+				head.prev = null;
+			}
+		}
+		else if(pos == size()){
+			Node temp = head;
+			while(temp.next.next != null){
+				temp = temp.next;
+			}
+			temp.next = null;
+		}
+		else{
+			Node temp = head;
+			for(int i=0;i<pos-2;i++){
+				temp = temp.next;
+			}
+			temp.next.next.prev = temp;
+			temp.next = temp.next.next;
+
+		}
+	}
+
+	public boolean isPalindrome(){
+		if(head == null || head.next == null){
+			return true;
+		}
+		int mid = (int)Math.ceil(size()/2.0);
+		Node temp1 = head;
+		Node temp2 = tail;
+		for(int i=0;i<mid;i++){
+			if(temp1.data != temp2.data){
+				return false;
+			}
+			temp1 = temp1.next;
+			temp2 = temp2.prev;
+		}
+		return true;
+	}
+
+	public void reverse(){
+		if(head == null || head.next == null){
+			return;
+		}
+		Node temp = null;
+		Node curr = head;
+		tail = head;
+		while(curr != null){
+			temp = curr.prev;
+			curr.prev = curr.next;
+			curr.next = temp;
+			curr = curr.prev;
+		}
+		head = temp.prev;
+	}
+}
+
+
+public class Demo{
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		DLL dli = new DLL();
+		dli.insertStart(20);
+		dli.insertStart(50);
+		dli.insertStart(40);
+		dli.insertStart(100);
+		dli.insertStart(38);
+		dli.insertStart(56);
+		dli.display();
+		dli.reverse();
+		dli.display();
+
+	}
+}

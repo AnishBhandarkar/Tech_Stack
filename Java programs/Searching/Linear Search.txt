@@ -1,0 +1,21 @@
+public class Practice1{
+	
+	public static void linearSearch(int[] arr, int data) {
+		if(arr.length==0) {
+			System.out.println(data+" not found!");
+			return;
+		}
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]==data) {
+				System.out.println(data+" found at position "+(i+1));
+				return;
+			}
+		}
+		System.out.println(data+" not found!");
+	}
+	
+	public static void main(String[] args) {
+		int[] arr = {12, 23, 45, 56, 78, 97, 34};
+		linearSearch(arr, 30);
+	}
+}

@@ -1,0 +1,40 @@
+import java.util.*;
+
+interface Notification{
+	void notifyUser();
+}
+
+class SmsNotification implements Notification{
+	@Override
+	public void notifyUser(){
+		System.out.println("Sending sms notification");
+	}
+}
+
+class EmailNotification implements Notification{
+	@Override
+	public void notifyUser(){
+		System.out.println("Sending Email notification");
+	}
+}
+
+class NotificationFactory{
+	public static Notification getNotification(String s){
+		if(s.equalsIgnoreCase("sms")){
+			return new SmsNotification();
+		}
+		else if(s.equalsIgnoreCase("email")){
+			return new EmailNotification();
+		}
+		else{
+			throw new IllegalArgumentException();
+		}
+	}
+}
+
+public class Demo{
+	public static void main(String[] args) {
+		Notification notf = NotificationFactory.getNotification("Email");
+		notf.notifyUser();
+	}
+}

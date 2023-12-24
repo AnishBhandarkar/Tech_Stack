@@ -1,0 +1,65 @@
+package com.practice;
+
+//Method 1:
+
+import java.util.Arrays;
+
+public class Practice1 {
+	public static int getMinimum(int[] arr) {
+		int min = arr[0];
+		for(int i=1;i<arr.length;i++)
+			if(arr[i]<min)
+				min=arr[i];
+		return min;
+	}
+	public static int getMaximum(int[] arr) {
+		int max = arr[0];
+		for(int i=1;i<arr.length;i++)
+			if(arr[i]>max)
+				max=arr[i];
+		return max;
+	}
+	
+	
+	public static void main(String[] args) {
+		int[] a = {12, 23, 3,4, 56, 76, 78, 90};
+		System.out.println(getMaximum(a));
+		System.out.println(getMinimum(a));
+	}
+}
+
+
+//Method 2;
+
+package com.practice;
+
+import java.util.Arrays;
+
+class MinMax{
+	int min, max;
+	public MinMax(int min, int max) {
+		this.max = max;
+		this.min = min;
+	}
+	
+}
+
+public class Practice1 {
+
+	public static MinMax getMinMax(int[] arr) {
+		Arrays.sort(arr);
+		int min = arr[0];
+		int max = arr[arr.length-1];
+		MinMax m = new MinMax(min, max);
+		return m;
+	}
+	
+	public static void main(String[] args) {
+		int[] a = {12, 23, 3,4, 56, 76, 78, 90};
+		MinMax m = getMinMax(a);
+		System.out.println(m.max);
+		System.out.println(m.min);
+	}
+
+}
+

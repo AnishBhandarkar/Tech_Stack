@@ -1,0 +1,78 @@
+package com.practice;
+
+import java.util.Arrays;
+
+/*
+i -> to mark index of left subarray
+j -> to mark index of right subarray
+k -> to mark index of merged array 
+
+*/
+
+public class Practice1{
+	
+	public static void merge(int[] arr, int[] left, int[] right) {
+		int i=0, j=0, k=0;
+		while(i < left.length && j < right.length) {
+			if(left[i] < right[j]) {
+				arr[k] = left[i];
+				k++;
+				i++;
+			}
+			else {
+				arr[k] = right[j];
+				k++;
+				j++;
+			}
+		}
+		
+		while(i < left.length) {
+			arr[k] = left[i];
+			k++;
+			i++;
+		}
+		while(j < right.length) {
+			arr[k] = right[j];
+			k++;
+			j++;
+		}
+	}
+	
+	public static void mergeSort(int[] arr) {
+		if(arr.length==0) {
+			System.out.println("Empty");
+			return;
+		}
+		if(arr.length<2) {
+			return;
+		}
+		
+		int mid = arr.length/2;
+		int[] left = new int[mid]; //index 0 to mid-1 elements are part of left sub-array
+		int[] right = new int[arr.length-mid]; //index mid to last elements are part of right sub-array
+		
+		for(int i=0;i<mid;i++) {
+			left[i] = arr[i];
+		}
+		for(int i=mid;i<arr.length;i++) {
+			right[i-mid] = arr[i];
+		}
+		
+		mergeSort(left);
+		mergeSort(right);
+		merge(arr, left, right);
+		
+	}
+	
+	public static void main(String[] args) {
+		int[] arr = {14, 78, 45, 34, 56, 100, 70, -9, 66};
+		
+		mergeSort(arr);
+		System.out.println(Arrays.toString(arr));
+	}
+}
+
+
+
+
+

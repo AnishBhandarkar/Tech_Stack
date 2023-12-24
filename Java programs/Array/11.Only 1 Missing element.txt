@@ -1,0 +1,29 @@
+package com.practice;
+
+import java.util.*;
+
+public class Practice1 {
+	public static int calcXor(int n) {
+		if(n == 1) {
+			return 1;
+		}
+		return n^(n-1);
+	}
+	
+	public static int calcXor(int[] arr) {
+		int res = 0;
+		for(int i=0;i<arr.length;i++) {
+			res ^= arr[i];
+		}
+		return res;
+	}
+	
+	public static void main(String[] args) {
+		int[] arr = {3, 2,4, 5};
+		int n = 5;
+		int op1 = calcXor(n);
+		int op2 = calcXor(arr);
+		System.out.println("Missing element = "+ (op1 ^ op2)); // 1
+		
+	}
+}

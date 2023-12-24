@@ -1,0 +1,39 @@
+package com.practice;
+
+import java.util.*;
+
+public class Practice1{
+	
+	public static void heapify(ArrayList<Integer> arr, int cur, int size) {
+		int left = 2*cur+1;
+		int right = 2*cur+2;
+		int largest = cur;
+		if(left < size && arr.get(left) > arr.get(largest)) {
+			largest = left;
+		}
+		if(right < size && arr.get(right) > arr.get(largest)) {
+			largest = right;
+		}
+		if(largest != cur) {
+			//swap arr[largest] and arr[cur]
+			int temp = arr.get(largest);
+			arr.set(largest, arr.get(cur));
+			arr.set(cur, temp);
+			
+			heapify(arr, largest, size);
+		}
+	}
+	
+	public static void buildHeap(ArrayList<Integer> arr) {
+		for(int i = arr.size()/2-1;i>=0;i--) {
+			heapify(arr, i, arr.size());
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(12, 45, 3, 6, 7, 38));
+		buildHeap(arr);
+		System.out.println(arr); //Output : [45, 12, 38, 6, 7, 3]
+	}
+}

@@ -1,0 +1,48 @@
+package com.practice;
+
+import java.util.Arrays;
+
+/*
+
+12,| 10, 56, 34, 89, 70
+10, 12, | 56, 34, 89, 70
+10, 12, 56, | 34, 89, 70
+10, 12, 34, 56, | 89, 70
+10, 12, 34, 56, 89, | 70
+10, 12, 34, 56, 70, 89
+
+Here we will select a element store it in temp;
+then INSERT at appropriate position in previous sorted array
+*/
+
+public class Practice1{
+	
+	public static void insertionSort(int[] arr) {
+		if(arr.length==0) {
+			System.out.println("Empty");
+			return;
+		}
+		int temp, j;
+		for(int i =1;i<arr.length;i++) {
+			temp = arr[i];
+			j = i-1;
+			while(j >=0 && arr[j] >temp) {
+				arr[j+1] = arr[j];
+				j--;
+			}
+			arr[j+1] = temp;
+		}
+	}
+	
+	public static void main(String[] args) {
+		int[] arr = {14, 78, 45, 34, 56, 100, 78, -9};
+		
+		insertionSort(arr);
+		System.out.println(Arrays.toString(arr));
+	}
+}
+
+
+
+
+

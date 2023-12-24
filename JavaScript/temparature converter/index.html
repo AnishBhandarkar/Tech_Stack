@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        
+
+        <div class="container-fluid">
+            <div class="row justify-content-evenly" style="margin-top: 120px;">
+                <div class="col-md-6 bg-warning">
+                    <h2 class="mt-2 mb-2" style="text-align: center">Temparature Converter</h2>
+                    <form>
+                        <div class="mb-3">
+                          <label for="cel" class="form-label">Temparature in Celsius</label>
+                          <input type="number" class="form-control" id="cel" value="0" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="fah" class="form-label">Temparature in Fahrenheit</label>
+                          <input type="number" class="form-control" id="fah" value="32" required>
+                        </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let cel = document.getElementById('cel');
+        let fah = document.getElementById('fah');
+
+        cel.addEventListener('input', function(){
+            let c = cel.value;
+            let f = c * (9/5) + 32;
+            fah.value = f;
+        });
+
+        fah.addEventListener('input', function(){
+            let f = fah.value;
+            let c = (f - 32)*(5/9);
+            cel.value = c;
+        });
+        
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+package com.practice;
+import java.util.*;
+
+public class Prac2 {
+	public static void maxFrequency(String s) {
+		int[] arr = new int[256];//ASCII Size;
+		for(int i=0;i<s.length();i++) {
+			arr[s.charAt(i)] = arr[s.charAt(i)] + 1;
+		}
+		int max = 0;
+		char c = ' ';
+		for(int i=0;i<s.length();i++) {
+			if(arr[s.charAt(i)] > max) {
+				max = arr[s.charAt(i)];
+				c = s.charAt(i);
+			}
+		}
+		System.out.println(c + " : " + max);
+	}
+	
+	public static void main(String[] args) {
+		String s = "abcdabcaa?????";
+		maxFrequency(s);
+	}
+}

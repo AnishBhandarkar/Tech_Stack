@@ -1,0 +1,62 @@
+1)Reverse a string using stack
+-------------------------------
+
+import java.util.*;
+
+
+//Reverse a string using stack
+public class Practice1{
+	public static void main(String[] args) {
+		String str = "hello world";
+		String rev = ""; 
+		Stack<Character> st = new Stack<>();
+		char[] charr = str.toCharArray();
+		for(int i=0;i<charr.length;i++) {
+			st.push(charr[i]);
+		}
+		for(int i=0;i<charr.length;i++) {
+			rev += st.pop();
+		}
+		System.out.println(rev);
+	}
+}
+
+=============================================================================================================================
+
+2)Balanced parentheses check using stack
+------------------------------------------
+
+public class Practice1{
+	public boolean isValid(String s) {
+		if(s.length()==0) {
+			return true;
+		}
+		Stack<Character> stack = new Stack<>(); 
+		char[] charArr = s.toCharArray();
+		for(char c:charArr) {
+			if(c=='(' || c=='{' || c=='[') {
+				stack.push(c);
+			}
+			else {
+				if(stack.isEmpty()) {
+					return false;
+				}
+				char top = stack.peek();
+				if((top=='(' && c==')') || (top=='{' && c=='}') ||(top=='[' && c==']')) {
+					stack.pop();
+				}
+				else { //To not allow any character except brackets
+					return false;
+				}
+			}
+		}
+		return stack.isEmpty();
+		
+	}
+	
+	public static void main(String[] args) {
+		Practice1 pr = new Practice1();
+		boolean result = pr.isValid("{([[{}()]])}");
+		System.out.println(result);
+	}
+}

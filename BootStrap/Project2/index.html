@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <style>
+        .nav-link {
+            font-weight: 400;
+            font-size: 20px;
+            margin-left: 30px;
+        }
+
+        .head-link:link {
+            text-decoration: none;
+        }
+
+        .head-link:visited {
+            text-decoration: none;
+        }
+
+        .head-link:hover {
+            text-decoration: underline;
+        }
+
+        .head-link:active {
+            text-decoration: underline;
+        }
+
+        .head-link {
+            font-size: medium;
+        }
+
+        /* From uiverse.io by @nikk7007 */
+        .special-but {
+            padding: 0.8em 1.8em;
+            border: 2px solid #0096FF;
+            position: relative;
+            overflow: hidden;
+            background-color: #0096FF;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 16px;
+            transition: .3s;
+            z-index: 1;
+            font-family: inherit;
+            color: white;
+        }
+
+        .special-but::before {
+            content: '';
+            width: 0;
+            height: 300%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            background: white;
+            transition: .5s ease;
+            display: block;
+            z-index: -1;
+        }
+
+        .special-but:hover::before {
+            width: 105%;
+        }
+
+        .special-but:hover {
+            color: black;
+        }
+
+        /* From uiverse.io by @alexmaracinaru */
+        .cta {
+            position: relative;
+            margin: auto;
+            padding: 12px 18px;
+            transition: all 0.2s ease;
+            border: none;
+            background: none;
+        }
+
+        .cta:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            border-radius: 50px;
+            background: #5CB8E4;
+            width: 45px;
+            height: 45px;
+            transition: all 0.3s ease;
+        }
+
+        .cta span {
+            position: relative;
+            font-family: "Ubuntu", sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #234567;
+        }
+
+        .cta svg {
+            position: relative;
+            top: 0;
+            margin-left: 10px;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke: #234567;
+            stroke-width: 2;
+            transform: translateX(-5px);
+            transition: all 0.3s ease;
+        }
+
+        .cta:hover:before {
+            width: 100%;
+            background: #5CB8E4;
+        }
+
+        .cta:hover svg {
+            transform: translateX(0);
+        }
+
+        .cta:active {
+            transform: scale(0.95);
+        }
+
+        .foot-link {
+            font-size: 23px;
+            color: black;
+        }
+
+        .foot-link:hover {
+            text-decoration: none;
+            color: #6F38C5;
+        }
+
+        .icon-col {
+            color: #6F38C5;
+            margin-right: 10px;
+            font-size: 23px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+    <!-- <div class="justify-content-end pt-2 pb-2 " style="text-align: right;background-color: #EEEEEE;">
+        <a href="" class="me-4 head-link">Investors</a>
+        <a href="" class="me-5 head-link" style="color: black;">Worldwide</a>
+
+    </div> -->
+
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg" style="background-color: white;">
+        <div class="container-fluid mt-2">
+            <img src="Images\logo.jpg" class="img-fluid ms-3" width="100px" alt="">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: black">
+                            Services
+                        </a>
+                        <ul class=" dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: black">
+                            Industries
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: black">
+                            About Us
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: black">
+                            Insights
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#" style="color: black">Careers</a>
+                    </li>
+
+                </ul>
+                <a class="nav-link me-5" aria-current="page" href="#" style="color: purple">Contact Us</a>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <img src="Images\search.jpg" class="img-fluid me-2" width="50px" alt="">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- sidebar -->
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="Images\img1.jpg" class="d-block w-100 img-fluid" style="height: 500px;" alt="...">
+                <div class="carousel-caption d-none d-md-block" style="text-align: left;">
+                    <h5 class="display-6">The Great Transition</h5>
+                    <p style="font-size: 30px;">A Great Transition is underway. The guiding principles of the economy,
+                        derived
+                        from the
+                        Industrial Revolution, are being overturned</p>
+                    <button class="special-but"> Learn More
+                    </button>
+                </div>
+            </div>
+            <div class=" carousel-item">
+                <img src="Images\img2.jpg" class="d-block w-100 img-fluid" style="height: 500px;" alt="...">
+                <div class="carousel-caption d-none d-md-block" style="text-align: left; color: black;">
+                    <h5 class="display-6">Digital innovation and employee experience: making the connection</h5>
+                    <p style="font-size: 30px;">DXC and Pfizer leaders discuss the topic in an article by MIT Sloan
+                        Management Review Connections.</p>
+                    <button class="special-but"> Learn More
+                    </button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="Images\img3.jpg" class="d-block w-100 img-fluid" style="height: 500px;" alt="...">
+                <div class="carousel-caption d-none d-md-block" style="text-align: left;">
+                    <h5 class="display-6">United to deliver excellence</h5>
+                    <p style="font-size: 30px;">DXC and Manchester United are partnering to enhance its digital offering
+                        to fans.</p>
+                    <button class="special-but"> Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row justify-content-evenly pt-5 pb-4">
+            <div class="col-md-4">
+                <h4 class="display-6" style="font-weight: 400;">Mission-critical IT services that transform
+                    business
+                </h4>
+                <p class="mt-4 mb-4" style="font-size: 20px;">Navigate the challenges and capitalize on the
+                    opportunities
+                    ahead to achieve greater
+                    performance,
+                    scale and competitiveness.</p>
+                <button class="special-but"> LEARN ABOUT DXC
+                </button>
+            </div>
+            <div class="col-md-4 pt-3">
+                <img src="Images\dxc1.jpg" alt="" class="img-fluid">
+            </div>
+        </div>
+
+        <div class="row justify-content-evenly pt-5">
+            <div class="col-md-4">
+                <img src="Images\dxc2.jpg" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-4">
+                <h4 class="display-6" style="font-weight: 400;">The power of DXC people and technology
+                </h4>
+                <p class="mt-4 mb-4" style="font-size: 20px;">We deliver excellence for our customers and colleagues
+                    every day. Our values form the foundation of everything we do and every decision we make.</p>
+                <button class="special-but"> JOIN OUR TEAM
+                </button>
+            </div>
+        </div>
+
+        <div class="row justify-content-evenly pt-5 mb-4">
+            <div class="col-md-3 text-center">
+                <h3 style="color: purple;">70+</h3>
+                <p>countries</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <h3 style="color: purple;">130,000+</h3>
+                <p>employees</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <h3 style="color: purple;">240+</h3>
+                <p>customers in the Fortune 500</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-evenly pt-5 pb-5" style="background-color: #EEEEEE;">
+
+            <div class="col-md-4">
+                <h4 class="display-6" style="font-weight: 400;">Modernize and transform
+                </h4>
+                <p class="mt-4 mb-4" style="font-size: 20px;">Bridge the gap from legacy to modern. Rethink your
+                    applications. Make the right investments at the right time. DXC delivers the IT services you need
+                    for the business outcomes you want across your entire IT estate.</p>
+                <button class="special-but"> EXPLORE OUR SERVICES
+                </button>
+            </div>
+            <div class="col-md-4 pt-3">
+                <img src="Images\dxc3.jpg" alt="" class="img-fluid">
+            </div>
+        </div>
+
+
+        <div class="row justify-content-evenly pt-5 pb-3">
+            <p style="text-align: center; margin-bottom: 50px; font-size: 35px; font-weight: 500;">Customer Stories</p>
+            <div class="col-md-4">
+                <img src="Images\plane.jpg" alt="" class="img-fluid" style="height: 400px;">
+            </div>
+            <div class="col-md-4">
+                <h4 style="font-weight: 400; font-size: 30px;">Leveraging cloud, data and automation for transformation
+                </h4>
+                <p class="mt-4 mb-4" style="font-size: 20px; line-height: 30px;">“DXC is showing up in a new and modern
+                    way and being
+                    really proactive in helping us solve the challenges that we face. It's not an overstatement to say
+                    that we wouldn't be flying without DXC. We have plans for many more years together.” <br><br>
+
+                    — Maya Leibman <br>
+                    CIO, American Airlines</p>
+                <button class="special-but"> READTHE STORY
+                </button>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-evenly pt-4 pb-5">
+
+            <div class="col-md-4">
+                <img src="Images\train.jpg" alt="" class="img-fluid" style="height: 300px;">
+                <h4>ecoming a transportation sustainability leader</h4>
+                <p>Alstom lays the groundwork for developing more sustainable public transportation by modernizing in
+                    the cloud the right way.</p>
+                <br>
+                <button class="cta">
+                    <span>Read The Story</span>
+                    <svg viewBox="0 0 13 10" height="10px" width="15px">
+                        <path d="M1,5 L11,5"></path>
+                        <polyline points="8 1 12 5 8 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <img src="Images\car.jpg" alt="" class="img-fluid" style="height: 300px;">
+                <h4>Boosting productivity and employee satisfaction</h4>
+                <p>Nissan enhances employee experience, minimizes downtime and embraces remote work for help desk agents
+                    through a flexible modern workplace.</p>
+                <button class="cta">
+                    <span>Read The Story</span>
+                    <svg viewBox="0 0 13 10" height="10px" width="15px">
+                        <path d="M1,5 L11,5"></path>
+                        <polyline points="8 1 12 5 8 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="row justify-content-evenly pb-5">
+            <div class="col-md-4 text-center">
+                <button class="special-but"> MORE CUSTOMER STORIES
+                </button>
+            </div>
+        </div>
+
+
+        <div class="row pt-5">
+            <p style="text-align: center; margin-bottom: 50px; font-size: 35px; font-weight: 500;">Perspectives</p>
+
+            <div class="col-md-3">
+                <div class="card mb-3" style="width: 18rem;margin: auto">
+                    <img src="Images\card1.jpg" class="card-img-top img-fluid" style="height:200px" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Thriving in the Accelerated Now</h5>
+                        <p class="card-text">Five factors of accelerated change drive business agility and growth this
+                            year.</p>
+                        <br> <br>
+                        <a href="#" class="btn btn-primary">READ MORE</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-3" style="width: 18rem;margin: auto">
+                    <img src="Images\card2.jpg" class="card-img-top img-fluid" style="height:200px" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Embracing the hyperscaler advantage</h5>
+                        <p class="card-text">Hyperscalers offer technical benefits for moving enterprise applications to
+                            the cloud that private clouds and in-house data centers cannot match.</p>
+                        <a href="#" class="btn btn-primary">READ MORE</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-3" style="width: 18rem;margin: auto">
+                    <img src="Images\card3.jpg" class="card-img-top img-fluid" style="height:200px" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Controlling emotions during high-stress security incidents</h5>
+                        <p class="card-text">Adopt these strategies for reducing panic and making better decisions when
+                            responding to a cyberattack.</p>
+                        <br>
+                        <a href="#" class="btn btn-primary">READ MORE</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-3" style="width: 18rem;margin: auto">
+                    <img src="Images\card4.jpg" class="card-img-top img-fluid" style="height:200px" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Moving into the metaverse</h5>
+                        <p class="card-text">Reap business benefits by creating a virtual world for your enterprise.</p>
+                        <br> <br> <br> <br>
+                        <a href="#" class="btn btn-primary">READ MORE</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row justify-content-evenly pb-5 pt-5">
+            <div class="col-md-4 text-center">
+                <button class="special-but"> MORE PERSPECTIVES
+                </button>
+            </div>
+        </div>
+
+        <div class="row pt-5 pb-5 justify-content-evenly">
+            <p style="text-align: center; margin-bottom: 50px; font-size: 35px; font-weight: 500;">Partner with leaders
+            </p>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h1.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h2.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h3.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h4.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h5.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+        </div>
+
+        <div class="row pt-3 justify-content-evenly">
+            </p>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h6.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h7.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h8.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h9.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h10.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+        </div>
+
+        <div class="row pt-3 justify-content-evenly">
+            </p>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h11.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h12.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h13.jpg" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h14.png" class="img-fluid" alt="..." style="height: 100px;"></a>
+            </div>
+            <div class="col-md-2">
+                <a href=""><img src="Images\img-h15.png" class="img-fluid" alt="..." style="height: 100x;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row justify-content-evenly pb-5 pt-5">
+        <div class="col-md-4 text-center">
+            <button class="special-but"> EXPLORE PARTNERS
+            </button>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-evenly" style="background-color: #6F38C5;">
+        <div class="col-md-4">
+            <p class="text-white mt-4" style="font-size: 40px;">Connect with DXC</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <button class="special-but mt-4 mb-4"> CONTACT US
+            </button>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-evenly pt-5 pb-5" style="background-color: #EEEEEE">
+        <div class="col-md-4">
+            <a class="head-link foot-link" href="">Careers</a> <br>
+            <a class="head-link foot-link" href="">Customer Stories</a> <br>
+            <a class="head-link foot-link" href="">Industries</a> <br>
+            <a class="head-link foot-link" href="">Investor Relations</a> <br>
+            <a class="head-link foot-link" href="">Newsroom</a> <br>
+            <a class="head-link foot-link" href="">Partner Ecosystem</a> <br>
+            <a class="head-link foot-link" href="">Services</a> <br> <br> <br> <br>
+
+            <i class="bi bi-facebook icon-col"></i>
+            <i class="bi bi-twitter icon-col"></i>
+            <i class="bi bi-linkedin icon-col"></i>
+            <i class="bi bi-youtube icon-col"></i>
+            <i class="bi bi-instagram icon-col"></i>
+
+
+        </div>
+        <div class="col-md-4">
+            <img src="Images\logo.jpg" class="img-fluid mb-3" width="100px" alt="">
+            <p style="font-size: large;">
+                DXC Technology (NYSE: DXC) helps global companies run <br> their mission-critical systems and operations
+                while <br> modernizing IT, optimizing data architectures, and <br> ensuring security and scalability
+                across
+                public, private and <br> hybrid clouds. The world's largest companies and public <br> sector
+                organizations
+                trust
+                DXC to deploy services to drive <br> new levels of performance, competitiveness, and customer <br>
+                experience
+                across their IT estates. Learn more about how <br> we deliver excellence for our customers and
+                colleagues at<br>
+                DXC.com.
+            </p>
+        </div>
+        <hr class="mt-5">
+    </div>
+    <div class="row justify-content-evenly pt-2 pb-5" style="background-color: #EEEEEE">
+        <div class="col-md-5">
+            <h4>© DXC Technology Company</h4>
+        </div>
+        <div class="col-md-5 text-end">
+            <a href="" class="head-link foot-link">Cookies</a> |
+            <a href="" class="head-link foot-link">Legal</a> |
+            <a href="" class="head-link foot-link">Privacy</a>
+        </div>
+    </div>
+
+
+
+
+
+
+    </div>
+
+
+
+</body>
+
+</html>

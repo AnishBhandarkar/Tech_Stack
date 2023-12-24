@@ -1,0 +1,3 @@
+<img src="path-to-image" alt="Alternative text" /> 
+
+save the cell as Markdown

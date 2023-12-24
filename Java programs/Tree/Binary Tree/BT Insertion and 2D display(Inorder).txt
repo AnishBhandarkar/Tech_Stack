@@ -1,0 +1,99 @@
+package com.practice;
+
+import java.util.*;
+
+
+class BT{
+	Node root;
+	
+	private class Node{
+		int data;
+		Node left;
+		Node right;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void insert(int data) {
+		Node node = new Node(data);
+		if(root==null) {
+			root = node;
+			return;
+		}
+		Queue<Node> que = new LinkedList<>();
+		Node temp;
+		que.add(root);
+		while(!que.isEmpty()) {
+			temp = que.remove();
+			if(temp.left == null) {
+				temp.left = node;
+				break;
+			}
+			else{
+				que.add(temp.left);
+			}
+			if(temp.right == null) {
+				temp.right = node;
+				break;
+			}
+			else{
+				que.add(temp.right);
+			}
+		}
+	}
+	
+	//Inorder
+	public void traversal(Node root) {
+		if(root==null) {
+			return;
+		}
+		traversal(root.left);
+		System.out.println(root.data);
+		traversal(root.right);
+	}
+	
+	public void print2D(Node root, int space) {
+		if(root==null) {
+			return;
+		}
+		space+=10;
+		print2D(root.right, space);
+		System.out.println();
+		for(int i=10;i<space;i++) {
+			System.out.print(" ");
+		}
+		System.out.println(root.data);
+		print2D(root.left, space);
+	}
+	
+}
+
+public class Practice1{
+	public static void main(String[] args) {
+		BT b = new BT();
+		b.insert(1);
+		b.insert(10);
+		b.insert(20);
+		b.insert(34);
+//		b.traversal(b.root);
+		b.print2D(b.root, 5);
+	}
+}
+
+
+
+
+
+Output:
+------
+
+
+               20
+
+     1
+
+               10
+
+                         34

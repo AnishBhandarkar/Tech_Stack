@@ -1,0 +1,89 @@
+T(n) = O(n logn)
+//Using sorting
+
+import java.util.*;
+
+public class Prac2 {
+	public static void largest(int[] arr, int k) {
+		Arrays.parallelSort(arr);
+		System.out.println(Arrays.toString(arr));
+		System.out.println("kth Largest element = "+arr[arr.length - k]);
+		System.out.println("kth Smallest element = "+arr[k-1]);
+	}
+	
+	public static void main(String[] args) {
+		int[] arr = {13, 45, 20, 18, 56, 78, 36};
+		Scanner sc = new Scanner(System.in);
+		int k = sc.nextInt();
+		largest(arr, k);
+	}
+}
+
+
+
+===================================================================================
+//Using Heap Property
+T(n) = O(n)+O(k * logn) = O(n) 
+In worst case O(n logn)
+
+import java.util.*;
+
+public class Prac2 {
+	public static void heapify(ArrayList<Integer> arr, int cur, int size) {
+		int left = 2*cur+1;
+		int right = 2*cur+2;
+		int largest = cur;
+		if(left < size && arr.get(left) > arr.get(largest)) {
+			largest = left;
+		}
+		if(right < size && arr.get(right) > arr.get(largest)) {
+			largest = right;
+		}
+		if(largest != cur) {
+			//swap arr[largest] and arr[cur]
+			int temp = arr.get(largest);
+			arr.set(largest, arr.get(cur));
+			arr.set(cur, temp);
+			
+			heapify(arr, largest, size);
+		}
+	}
+	
+	public static void buildHeap(ArrayList<Integer> arr) {
+		for(int i = arr.size()/2-1;i>=0;i--) {
+			heapify(arr, i, arr.size());
+		}
+	}
+	
+	public static int pop(ArrayList<Integer> arr) {
+		if(arr.size()==0) {
+			return -1;
+		}
+		int max = arr.get(0);
+		arr.set(0, arr.get(arr.size()-1));
+		arr.remove(arr.size()-1);
+		heapify(arr, 0, arr.size());
+		return max;
+	}
+	
+	public static void main(String[] args) {
+		int[] arr = {13, 45, 20, 18, 56, 78, 36};
+		ArrayList<Integer> a = new ArrayList<>(Arrays.asList(13, 45, 20, 18, 56, 78, 36));
+		Scanner sc = new Scanner(System.in);
+		int k = sc.nextInt();
+		int max = 0;
+		int min = 0
+		buildHeap(a);
+		for(int i=0;i<k;i++) {
+			max = pop(a);
+		}
+		System.out.println(max);
+		for(int i=0;i<arr.length-k+1;i++) {
+			min = pop(a);
+		}
+		System.out.println(min);
+	}
+}
+
+
+

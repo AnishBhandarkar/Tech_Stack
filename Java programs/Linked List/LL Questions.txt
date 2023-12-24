@@ -1,0 +1,460 @@
+1)Find and delete nth node from the end of linked list
+========================================================================================
+
+class LL{
+	Node head;
+	Node tail;
+	private class Node{
+		private int data;
+		private Node next;
+		Node(int data){
+			this.data = data;
+		}
+	}
+	public void deleteFirst() {
+		if(head==null) {
+			return;
+		}
+		head = head.next;
+	}
+	
+	public void deleteLast() {
+		if(head==null) {
+			return;
+		}
+		Node temp = head;
+		while(temp.next.next != null) {
+			temp = temp.next;
+		}
+		temp.next = null;
+		tail = temp;
+	}
+	
+	public void addLast(int data) {
+		Node node = new Node(data);
+		if(head==null) {
+			head=node;
+			tail=node;
+			return;
+		}
+		tail.next = node;
+		tail = node;
+	}
+	public void display() {
+		if(head==null) {
+			System.out.println("Empty");
+			return;
+		}
+		Node temp = head;
+		while(temp!=null) {
+			System.out.print(temp.data+" --> ");
+			temp = temp.next;
+		}
+		System.out.println("null");
+	}
+	
+	public int count() {
+		int size=0;
+		if(head==null) {
+			return 0;
+		}
+		Node temp = head;
+		while(temp!=null) {
+			size++;
+			temp = temp.next;
+		}
+		return size;
+	}
+	public void delete(int pos) {
+		int newPos = count()-pos+1;
+		if(newPos == 1) {
+			deleteFirst();
+			return;
+		}
+		if(newPos==count()) {
+			deleteLast();
+			return;
+		}
+		Node temp = head;
+		for(int i=1;i<newPos-1;i++) {
+			temp = temp.next;
+		}
+		temp.next = temp.next.next;
+	}
+}
+======================================================================
+
+public void deleteNthNodeFromLast(int n){
+		if(n > countNodes()){
+			System.out.println("Invalid position");
+			return;
+		}
+		int pos = countNodes() - n + 1;
+		if(pos == 1){
+			if(head.link == null){
+				head = tail = null;
+			}
+			else{
+				head = head.link;
+			}
+		}
+		else{
+			Node temp = head;
+			for(int i=0;i<pos-2;i++){
+				temp = temp.link;
+			}
+			temp.link = temp.link.link;
+		}
+	}
+
+======================================================================
+
+
+
+
+public class Practice1{
+	public static void main(String[] args) {
+		LL li = new LL();
+		li.addLast(10);
+		li.addLast(20);
+		li.addLast(30);
+		li.addLast(40);
+		li.addLast(50);
+		li.addLast(60);
+		li.addLast(70);
+		li.display();
+		li.delete(7);
+		li.display();
+		
+	}
+	
+}
+
+=====================================================================================================================
+
+2)Check if a linked list is palindrome
+----------------------------------------------------------------------------------------------------
+
+S(n) = O(n)
+
+
+public boolean isPalindrome(){
+		if(head == null || head.link == null){
+			return true;
+		}
+		Stack<Integer> st = new Stack<>();
+		Node temp = head;
+		while(temp != null){
+			st.push(temp.data);
+			temp = temp.link;
+		}
+		temp = head;
+		while(temp != null){
+			if(temp.data != st.pop()){
+				return false;
+			}
+			temp = temp.link;
+		}
+		return true;
+	}
+
+
+
+
+
+
+=============================================
+
+S(n) = O(1)
+
+
+class LL{
+	Node newHead;
+	Node head;
+	Node tail;
+	private class Node{
+		private int data;
+		private Node next;
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void addLast(int data) {
+		Node node = new Node(data);
+		if(head==null) {
+			head=node;
+			tail=node;
+			return;
+		}
+		tail.next = node;
+		tail = node;
+	}
+
+	public void display() {
+		if(head==null) {
+			System.out.println("Empty");
+			return;
+		}
+		Node temp = head;
+		while(temp!=null) {
+			System.out.print(temp.data+" --> ");
+			temp = temp.next;
+		}
+		System.out.println("null");
+	}
+	
+	public int count() {
+		int size=0;
+		if(head==null) {
+			return 0;
+		}
+		Node temp = head;
+		while(temp!=null) {
+			size++;
+			temp = temp.next;
+		}
+		return size;
+	}
+	
+	public Node reverse(Node node) {
+		Node prev=null;
+		Node curr=node;
+		Node next=curr.next;
+		while(curr!=null) {
+			curr.next=prev;
+			prev = curr;
+			curr = next;
+			if(next!=null) {
+				next = next.next;
+			}
+		}
+		newHead = prev;
+		return newHead;
+		
+	}
+	
+	public boolean isPalindrome() {
+		if(head==null || head.next==null) {
+			return true;
+		}
+		int middle = (int)Math.ceil(count()/2.0);
+		Node temp=head;
+		for(int i=1;i<middle;i++) {
+			temp=temp.next;
+		}
+		Node lastHead = reverse(temp.next);
+		Node firsthead = head;
+		while(lastHead!=null) {
+			if(firsthead.data!=lastHead.data) {
+				return false;
+			}
+			firsthead = firsthead.next;
+			lastHead = lastHead.next;
+		}
+		return true;
+	}
+
+}
+
+
+public class Practice1{
+	public static void main(String[] args) {
+		LL li = new LL();
+		li.addLast(10);
+		li.addLast(20);
+		li.addLast(30);
+//		li.addLast(40);
+		li.addLast(30);
+		li.addLast(20);
+		li.addLast(10);
+		li.display();
+		System.out.println(li.isPalindrome());
+//		li.display();
+		
+	}
+	
+}
+
+
+=====================================================================================================================
+
+(Loop detection can be checked on circular linked list)
+
+3)Detect Cycle in a LL
+----------------------------------------------------------------------------------------------------
+hare and turtle approach
+
+hare move 2 step and turtle move 1 step
+and if there is a loop in LL then hare and turtle definitely meet on a node.
+If this occurs cycle exist in the LL.
+
+public boolean isCyclic() {
+	if(head==null||head.next==null) {
+		return false;
+	}
+	Node hare=head;
+	Node turtle=head;
+	while(hare != null && hare.next != null) {
+		hare = hare.next.next;
+		turtle=turtle.next;
+
+		if(hare==turtle) {
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
+=====================================================================================================================
+
+4) Finding start of a loop in list
+----------------------------------------------------------------------------------------------------
+
+public Node startOfLoop() {
+	if(head==null||head.next==null) {
+		return null;
+	}
+	Node hare = head;
+	Node turtle=head;
+	while(hare!=null && hare.next!=null) {
+		hare = hare.next.next;
+		turtle = turtle.next;
+		if(hare==turtle) {
+			return startingNode(turtle);
+		}
+	}
+	return null;
+}
+
+
+public Node startingNode(Node turtle) {
+	Node temp=head;
+	while(temp!=turtle) {
+		temp=temp.next;
+		turtle = turtle.next;
+	}
+	return temp;
+}
+
+public void res() {
+	Node ans = startNodeOfLoop();
+	System.out.println(ans.data);
+}
+
+
+=====================================================================================================================
+
+5) Removing of a loop in list
+----------------------------------------------------------------------------------------------------
+
+public void removeLoop() {
+	Node hare=head;
+	Node turtle=head;
+	while(hare.next!=null&&hare!=null) {
+		hare=hare.next.next;
+		turtle=turtle.next;
+		if(hare==turtle) {
+			getEndOfLoop(turtle);
+		}
+	}
+}
+
+public void getEndOfLoop(Node turtle) {
+	Node temp=head;
+
+	//This will make turtle point to end of loop where it points startPoint of loop
+	while(turtle.next!=temp.next) {
+		temp=temp.next;
+		turtle=turtle.next;
+	}
+
+	turtle.next = null;
+}
+
+
+
+=====================================================================================================================
+
+6)Remove duplicates from sorted list
+----------------------------------------------------------------------------------------------------
+
+public void removeDuplicates() {
+	if(head==null || head.next==null) {
+		return;
+	}
+	Node temp = head;
+	while(temp!=null && temp.next!=null) {
+		if(temp.data==temp.next.data) {
+			temp.next=temp.next.next;
+		}
+		else {
+			temp = temp.next;
+		}
+	}
+}
+
+
+
+=====================================================================================================================
+
+7) Insert in a sorted list
+----------------------------------------------------------------------------------------------------
+
+public void insertSortedList(int data) {
+	Node node = new Node(data);
+	if(head==null) {
+		addFirst(data);
+		return;
+	}
+	if(head.data >= data) {
+		addFirst(data);
+		return;
+	}
+	Node temp=head;
+	Node ctemp = null;
+	while(temp!=null && temp.data<data) {
+		ctemp = temp;
+		temp = temp.next;
+	}
+	node.next = temp;
+	ctemp.next=node;
+}
+
+=====================================================================================================================
+
+8) Delete given data in list
+----------------------------------------------------------------------------------------------------
+
+public void deleteData(int data) {
+	if(head==null) {
+		return;
+	}
+	if(head.next==null && head.data==data) {
+		head=null;
+		return;
+	}
+	if(head.data==data) {
+		deleteFirst();
+		return;
+	}
+	Node temp = head;
+	Node ctemp=null;
+	while(temp!=null && temp.data!=data) {
+		ctemp=temp;
+		temp=temp.next;
+	}
+	if(temp==null) {
+		System.out.println("No data");
+	}
+	else {
+		ctemp.next=temp.next;
+	}	
+}
+
+
+=====================================================================================================================
+
+ 

@@ -1,0 +1,16 @@
+1)Why do you prefer java?
+Well there are several reasons.
+1)Platform independent
+2)OOL
+3)Automatic memory management(Garabage Collection)
+4)Exceptional handling
+5)Multithreading
+6)Collection classes
+7)Various frameworks
+8)Huge community
+
+2)
+Static methods can access static methods.
+But inorder to access non-static methods object need to be created.
+
+Non-static methods can access static as well as non-static methods without object creation

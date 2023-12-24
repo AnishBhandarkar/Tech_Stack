@@ -1,0 +1,48 @@
+package com.practice;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+class Table{
+	public void printTable(int n) {
+		synchronized(this) {
+			for(int i=1;i=5;i++) {
+				System.out.println(n+  +i+ = +ni);
+			}
+		}		
+	}
+}
+
+class A extends Thread{
+	Table t;
+	A(Table t){
+		this.t = t;
+	}
+	public void run() {
+		t.printTable(5);
+	}
+}
+
+class B extends Thread{
+	Table t;
+	B(Table t){
+		this.t = t;
+	}
+	public void run() {
+		t.printTable(10);
+	}
+}
+
+
+
+
+public class Practice1{
+
+	public static void main(String[] args) {
+		Table table = new Table();
+		A a = new A(table);
+		B b = new B(table);
+		a.start();
+		b.start();
+	} 
+}

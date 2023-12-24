@@ -1,0 +1,31 @@
+package com.practice;
+
+import java.util.*;
+
+public class Practice1 {
+	public static void dup(String s) {
+		char[] ch=s.toCharArray();
+		ArrayList<Character> li = new ArrayList<>();
+		for(int i=0;i<ch.length-1;i++) {
+			for(int j=i+1;j<ch.length;j++) {
+				if(ch[i]==ch[j]) {
+					if(li.contains(ch[i]))
+						break;
+					else
+						li.add(ch[i]);
+				}
+			}
+		}
+		if(li.size() == 0)
+			System.out.println("No duplicates");
+		else {
+			System.out.println(li);
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		String s = "hello world"; 
+		dup(s);
+	}
+}

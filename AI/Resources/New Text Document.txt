@@ -1,0 +1,7 @@
+https://gist.github.com/pb111
+
+
+//ML and DLK book (Must refer)
+https://oricohen.gitbook.io/machine-and-deep-learning-compendium/
+
+https://d2l.ai/index.html

@@ -1,0 +1,667 @@
+RowSets
+-------
+It is alternative to ResultSet.
+We can use RowSet to handle a group of records in more effective way than ResultSet.
+RowSet interface present in javax.sql package
+RowSet is child interface of ResultSet.
+RowSet implementations will be provided by Java vendor and database vendor.
+By default RowSet is scrollable and updatable.
+By default RowSet is serializable and hence we can send RowSet object across the network. But
+ResultSet object is not serializable.
+ResultSet is connected i.e to use ResultSet compulsary database Connection must be required.
+RowSet is disconnected. ie to use RowSet database connection is not required.
+
+Types of RowSets:
+-----------------
+There are two types of RowSets
+1.Connected RowSets
+2. Disconnected RowSets
+
+Connected RowSets:
+Connected RowSets are just like ResultSets.
+To access RowSet data compulsary connection should be available to database.
+We cannot serialize Connected RowSets
+Eg: JdbcRowSet
+
+Disconnected RowSets:
+Without having Connection to the database we can access RowSet data.
+We can serialize Disconnected RowSets.
+Eg:
+ CachedRowSet
+ WebRowSet
+FilteredRowSet
+ JoinRowSet
+
+
+How to create RowSet objects:
+---------------------------------
+We can create different types of RowSet objects as follows
+RowSetFactory rsf = RowSetProvider.newFactory();
+JdbcRowSet jrs = rsf.createJdbcRowSet();
+CachedRowSet crs = rsf.createCachedRowSet();
+WebRowSet wrs = rsf.createWebRowSet();
+JoinRowSet jnrs = rsf.createJoinRowSet();
+FilteredRowSet frs = rsf.createFilteredRowSet();
+
+Application-1: To create Different RowSet Objects:
+--------------------------------------------------
+1) import javax.sql.rowset.*; 
+2) public class Test 
+3) { 
+4) public static void main(String[] args) throws Exception 
+5) { 
+6) RowSetFactory rsf=RowSetProvider.newFactory(); 
+7) JdbcRowSet jrs=rsf.createJdbcRowSet(); 
+8) CachedRowSet crs=rsf.createCachedRowSet(); 
+9) WebRowSet wrs=rsf.createWebRowSet(); 
+10) JoinRowSet jnrs=rsf.createJoinRowSet(); 
+11) FilteredRowSet frs=rsf.createFilteredRowSet(); 
+12) 
+13) System.out.println(jrs.getClass().getName()); 
+14) System.out.println(crs.getClass().getName()); 
+15) System.out.println(wrs.getClass().getName()); 
+16) System.out.println(jnrs.getClass().getName()); 
+17) System.out.println(frs.getClass().getName()); 
+18) } 
+19) }
+
+
+
+1.JdbcRowSet(I):
+================
+It is exactly same as ResultSet except that it is scrollable and updatable.
+JdbcRowSet is connected and hence to access JdbcRowSet compulsary Connection must be
+required.
+JdbcRowSet is non serializable and hence we cannot send RowSet object across the network.
+
+Application-2: To Retrieve records from JdbcRowSet:
+----------------------------------------------------
+1) import javax.sql.rowset.*; 
+2) public class JdbcRowSetRetrieveDemo { 
+3) public static void main(String[] args)throws Exception { 
+4) RowSetFactory rsf=RowSetProvider.newFactory(); 
+5) JdbcRowSet rs=rsf.createJdbcRowSet(); 
+6) rs.setUrl("jdbc:mysql://localhost:3306/durgadb"); 
+7) rs.setUsername("root"); 
+8) rs.setPassword("root"); 
+9) rs.setCommand("select * from employees"); 
+10) rs.execute(); 
+11) System.out.println("Employee Details In Forward Direction"); 
+12) System.out.println("ENO\tENAME\tESAL\tEADDR"); 
+13) System.out.println("----------------------------------"); 
+14) while(rs.next()){ 
+15) System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getFloat(3)+"\t"+rs.getS
+tring(4)); 
+16) } 
+17) System.out.println("Employee Details In Backward Direction"); 
+18) System.out.println("ENO\tENAME\tESAL\tEADDR"); 
+19) System.out.println("----------------------------------"); 
+20) while(rs.previous()){ 
+21) System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getFloat(3)+"\t"+rs.getS
+tring(4)); 
+22) } 
+23) System.out.println("Accessing Randomly..."); 
+24) rs.absolute(3); 
+25) System.out.println(rs.getRow()+"---
+>"+rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getFloat(3)+"\t"+rs.getString(4)); 
+26) rs.first(); 
+27) System.out.println(rs.getRow()+"---
+>"+rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getFloat(3)+"\t"+rs.getString(4)); 
+28) rs.last(); 
+29) System.out.println(rs.getRow()+"---
+>"+rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getFloat(3)+"\t"+rs.getString(4)); 
+30) rs.close(); 
+31) } 
+32) } 
+
+Application-3: To Insert Records by using JdbcRowSet
+----------------------------------------------------
+1) import java.util.Scanner; 
+2) import javax.sql.rowset.*; 
+3) public class JdbcRowSetInsertDemo { 
+4) public static void main(String[] args)throws Exception { 
+5) RowSetFactory rsf=RowSetProvider.newFactory(); 
+6) JdbcRowSet rs=rsf.createJdbcRowSet(); 
+7) rs.setUrl("jdbc:mysql://localhost:3306/durgadb"); 
+8) rs.setUsername("root"); 
+9) rs.setPassword("root"); 
+10) rs.setCommand("select * from employees"); 
+11) rs.execute(); 
+12) Scanner s=new Scanner(System.in); 
+13) rs.moveToInsertRow(); 
+14) while(true){ 
+15) System.out.print("Employee Number :"); 
+16) int eno=s.nextInt(); 
+17) System.out.print("Employee Name :"); 
+18) String ename=s.next(); 
+19) System.out.print("Employee Salary :"); 
+20) float esal=s.nextFloat(); 
+21) System.out.print("Employee Address :"); 
+22) String eaddr=s.next(); 
+23) 
+24) rs.updateInt(1, eno); 
+25) rs.updateString(2, ename); 
+26) rs.updateFloat(3, esal); 
+27) rs.updateString(4, eaddr); 
+28) rs.insertRow(); 
+29) 
+30) System.out.println("Employee Inserted Successfully"); 
+31) System.out.print("Do You Want to insert One more Employee[yes/no]? :"); 
+32) String option=s.next(); 
+33) if(option.equalsIgnoreCase("No")){ 
+34) break; 
+35) } 
+36) } 
+37) rs.close(); 
+38) } 
+39) } 
+
+
+Application-4: To Update Records by using JdbcRowSet
+-----------------------------------------------------
+1) import javax.sql.rowset.*; 
+2) public class JdbcRowSetUpdateDemo { 
+3) public static void main(String[] args)throws Exception { 
+4) RowSetFactory rsf=RowSetProvider.newFactory(); 
+5) JdbcRowSet rs=rsf.createJdbcRowSet(); 
+6) rs.setUrl("jdbc:mysql://localhost:3306/durgadb"); 
+7) rs.setUsername("root"); 
+8) rs.setPassword("root"); 
+9) rs.setCommand("select * from employees"); 
+10) rs.execute(); 
+11) while(rs.next()){ 
+12) float esal=rs.getFloat(3); 
+13) if(esal<10000){ 
+14) float new_Esal=esal+500; 
+15) rs.updateFloat(3, new_Esal); 
+16) rs.updateRow(); 
+17) } 
+18) } 
+19) System.out.println("Records Updated Successfully"); 
+20) rs.close(); 
+21) } 
+22) } 
+
+Application-5: To Delete Records by using JdbcRowSet
+----------------------------------------------------
+1) import javax.sql.rowset.*; 
+2) public class JdbcRowSetDeleteDemo { 
+3) public static void main(String[] args)throws Exception { 
+4) RowSetFactory rsf=RowSetProvider.newFactory(); 
+5) JdbcRowSet rs=rsf.createJdbcRowSet(); 
+6) rs.setUrl("jdbc:mysql://localhost:3306/durgadb"); 
+7) rs.setUsername("root"); 
+8) rs.setPassword("root"); 
+9) rs.setCommand("select * from employees"); 
+10) rs.execute(); 
+11) while(rs.next()){ 
+12) float esal=rs.getFloat(3); 
+13) if(esal>5000){ 
+14) rs.deleteRow(); 
+15) } 
+16) } 
+17) System.out.println("Records Deleted Successfully"); 
+18) rs.close(); 
+19) } 
+20) } 
+
+
+
+
+CachedRowSet:
+==============
+It is the child interface of RowSet.
+It is bydefault scrollable and updatable.
+It is disconnected RowSet. ie we can use RowSet without having database connection.
+It is Serializable.
+The main advantage of CachedRowSet is we can send this RowSet object for multiple people
+across the network and all those people can access RowSet data without having DB Connection.
+If we perform any update operations(like insert,delete and update) to the CachedRowSet,to
+reflect those changes compulsary Connection should be established.
+Once Connection established then only those changes will be reflected in Database.
+
+Application-6: To Demonstrate Disconnected CachedRowSet
+------------------------------------------------------
+1) import java.sql.*; 
+2) import javax.sql.rowset.*; 
+3) public class CachedRowSetDemo { 
+4) public static void main(String[] args)throws Exception { 
+5) Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/durgadb
+","root","root"); 
+6) Statement st =con.createStatement(); 
+7) ResultSet rs =st.executeQuery("select * from employees"); 
+8) RowSetFactory rsf=RowSetProvider.newFactory(); 
+9) CachedRowSet crs=rsf.createCachedRowSet(); 
+10) crs.populate(rs); 
+11) con.close(); 
+12) //Now we cannot access RS but we can access CRS 
+13) //if(rs.next()){}RE:SQLException:Operation not allowed after ResultSet closed 
+14) System.out.println("ENO\tENAME\tESAL\tEADDR"); 
+15) System.out.println("-----------------------------"); 
+16) while(crs.next()){ 
+17) System.out.println(crs.getInt(1)+"\t"+crs.getString(2)+"\t"+crs.getFloat(3)+"\t"+crs.
+getString(4)); 
+18) } 
+19) } 
+20) } 
+
+Application-7: To Retrieve Records by using CachedRowSet
+--------------------------------------------------------
+1) import javax.sql.rowset.*; 
+2) public class CachedRowSetRetrieveDemo { 
+3) public static void main(String[] args)throws Exception { 
+4) RowSetFactory rsf=RowSetProvider.newFactory(); 
+5) CachedRowSet rs=rsf.createCachedRowSet(); 
+6) rs.setUrl("jdbc:mysql://localhost:3306/durgadb"); 
+7) rs.setUsername("root"); 
+8) rs.setPassword("root"); 
+9) rs.setCommand("select * from employees"); 
+10) rs.execute(); 
+11) System.out.println("Data In Forward Direction"); 
+12) System.out.println("ENO\tENAME\tESAL\tEADDR"); 
+13) System.out.println("-----------------------------"); 
+14) while(rs.next()){ 
+15) System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getFloat(3)+"\t"+rs.getS
+tring(4)); 
+16) }System.out.println("Data In Backward Direction"); 
+17) System.out.println("ENO\tENAME\tESAL\tEADDR"); 
+18) System.out.println("--------------------------------"); 
+19) while(rs.previous()){ 
+20) System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getFloat(3)+"\t"+rs.getS
+tring(4)); 
+21) } 
+22) } 
+23) } 
+
+Application-8: To Insert Records by using CachedRowSet
+---------------------------------------------------------
+1) import java.util.*; 
+2) import javax.sql.rowset.*; 
+3) 
+4) public class CachedRowSetInsertDemo { 
+5) public static void main(String[] args)throws Exception{ 
+6) RowSetFactory rsf=RowSetProvider.newFactory(); 
+7) CachedRowSet rs=rsf.createCachedRowSet(); 
+8) rs.setUrl("jdbc:mysql://localhost:3306/durgadb?relaxAutoCommit=true"); 
+9) rs.setUsername("root"); 
+10) rs.setPassword("root"); 
+11) rs.setCommand("select * from employees"); 
+12) rs.execute(); 
+13) Scanner s=new Scanner(System.in); 
+14) while(true){ 
+15) System.out.print("Employee Number :"); 
+16) int eno=s.nextInt(); 
+17) System.out.print("Employee Name :"); 
+18) String ename=s.next(); 
+19) System.out.print("Employee Salary :"); 
+20) float esal=s.nextFloat(); 
+21) System.out.print("EMployee Address :"); 
+22) String saddr=s.next(); 
+23) 
+24) rs.moveToInsertRow(); 
+25) rs.updateInt(1, eno); 
+26) rs.updateString(2, ename); 
+27) rs.updateFloat(3, esal); 
+28) rs.updateString(4, saddr); 
+29) rs.insertRow(); 
+30) 
+31) System.out.println("Employee Inserted Successfully"); 
+32) System.out.print("Do you want to insert One more Employee[Yes/No]? :"); 
+33) String option=s.next(); 
+34) if(option.equalsIgnoreCase("No")){ 
+35) break; 
+36) } 
+37) } 
+38) rs.moveToCurrentRow(); 
+39) rs.acceptChanges(); 
+40) rs.close(); 
+41) } 
+42) } 
+
+Application-9: To Update Records by using CachedRowSet
+-------------------------------------------------------
+1) import javax.sql.rowset.*; 
+2) 
+3) public class CachedRowSetUpdateDemo { 
+4) public static void main(String[] args)throws Exception{ 
+5) 
+6) RowSetFactory rsf=RowSetProvider.newFactory(); 
+7) CachedRowSet rs=rsf.createCachedRowSet(); 
+8) rs.setUrl("jdbc:mysql://localhost:3306/durgadb?relaxAutoCommit=true"); 
+9) rs.setUsername("root"); 
+10) rs.setPassword("root"); 
+11) rs.setCommand("select * from employees"); 
+12) rs.execute(); 
+13) while(rs.next()){ 
+14) float esal=rs.getFloat(3); 
+15) if(esal<10000){ 
+16) esal=esal+500; 
+17) rs.updateFloat(3, esal); 
+18) rs.updateRow(); 
+19) } 
+20) } 
+21) rs.moveToCurrentRow(); 
+22) rs.acceptChanges(); 
+23) System.out.println("Records Updated Successfully"); 
+24) rs.close(); 
+25) } 
+26) } 
+ 
+Application-10: To Delete Records by using CachedRowSet
+--------------------------------------------------------
+1) import javax.sql.rowset.*; 
+2) 
+3) public class CachedRowSetDeleteDemo { 
+4) public static void main(String[] args)throws Exception{ 
+5) 
+6) RowSetFactory rsf=RowSetProvider.newFactory(); 
+7) CachedRowSet rs=rsf.createCachedRowSet(); 
+8) rs.setUrl("jdbc:mysql://localhost:3306/durgadb?relaxAutoCommit=true"); 
+9) rs.setUsername("root"); 
+10) rs.setPassword("root"); 
+11) rs.setCommand("select * from employees"); 
+12) rs.execute(); 
+13) while(rs.next()){ 
+14) float esal=rs.getFloat(3); 
+15) if(esal>6000){ 
+16) rs.deleteRow(); 
+17) } 
+18) } 
+19) rs.moveToCurrentRow(); 
+20) rs.acceptChanges(); 
+21) rs.close(); 
+22) System.out.println("Records deleted successfully"); 
+23) } 
+24) }
+
+
+WebRowSet(I):
+==============
+It is the child interface of CachedRowSet.
+It is bydefault scrollable and updatable.
+It is disconnected and serializable
+WebRowSet can publish data to xml files,which are very helpful for enterprise applications.
+FileWriter fw=new FileWriter("emp.xml");
+rs.writeXml(fw);
+We can read XML data into RowSet as follows
+FileReader fr=new FileReader("emp.xml");
+rs.readXml(fr);
+Application-11: To Retrieve Records by using WebRowSet
+1) import java.io.*; 
+2) import javax.sql.rowset.*; 
+3) 
+4) public class WebRowSetRetrieveDemo { 
+5) public static void main(String[] args)throws Exception { 
+6) RowSetFactory rsf=RowSetProvider.newFactory(); 
+7) WebRowSet rs=rsf.createWebRowSet(); 
+8) rs.setUrl("jdbc:mysql://localhost:3306/durgadb"); 
+9) rs.setUsername("root"); 
+10) rs.setPassword("root"); 
+11) rs.setCommand("select * from employees"); 
+12) rs.execute(); 
+13) FileWriter fw=new FileWriter("emp.xml"); 
+14) rs.writeXml(fw); 
+15) System.out.println("Employee Data transfered to emp.xml file"); 
+16) fw.close(); 
+17) } 
+18) } 
+
+Application-12: To Insert Records by using WebRowSet
+-----------------------------------------------------
+1) import java.io.*; 
+2) import javax.sql.rowset.*; 
+3) public class WebRowSetInsertDemo { 
+4) public static void main(String[] args)throws Exception { 
+5) RowSetFactory rsf=RowSetProvider.newFactory(); 
+6) WebRowSet rs=rsf.createWebRowSet(); 
+7) rs.setUrl("jdbc:mysql://localhost:3306/durgadb?relaxAutoCommit=true"); 
+8) rs.setUsername("root"); 
+9) rs.setPassword("root"); 
+10) rs.setCommand("select * from employees"); 
+11) rs.execute(); 
+12) FileReader fr=new FileReader("emp.xml"); 
+13) rs.readXml(fr); 
+14) rs.acceptChanges(); 
+15) System.out.println("emp data inserted successfully"); 
+16) fr.close(); 
+17) rs.close(); 
+18) } 
+19) } 
+Note: In emp.xml file, <insertRow> tag must be provided under <data> tag
+
+Application-13: To Delete Records by using WebRowSet
+-----------------------------------------------------
+1) import java.io.*; 
+2) import javax.sql.rowset.*; 
+3) public class WebRowSetDeleteDemo { 
+4) public static void main(String[] args)throws Exception { 
+5) RowSetFactory rsf=RowSetProvider.newFactory(); 
+6) WebRowSet rs=rsf.createWebRowSet(); 
+7) rs.setUrl("jdbc:mysql://localhost:3306/durgadb?relaxAutoCommit=true"); 
+8) rs.setUsername("root"); 
+9) rs.setPassword("root"); 
+10) rs.setCommand("select * from employees"); 
+11) rs.execute(); 
+12) FileReader fr=new FileReader("emp.xml"); 
+13) rs.readXml(fr); 
+14) rs.acceptChanges(); 
+15) System.out.println("emp data deleted successfully"); 
+16) fr.close(); 
+17) rs.close(); 
+18) } 
+19) } 
+Note: In emp.xml file, <deleteRow> tag must be provided under <data> tag
+
+
+JoinRowSet:
+===========
+It is the child interface of WebRowSet.
+It is by default scrollable and updatable
+It is disconnected and serializable
+If we want to join rows from different rowsets into a single rowset based on matched
+column(common column) then we should go for JoinRowSet.
+We can add RowSets to the JoinRowSet by using addRowSet() method.
+addRowSet(RowSet rs,int commonColumnIndex);
+Application-14: To Retrieve Records by using JoinRowSet
+1) import java.sql.*; 
+2) import javax.sql.rowset.*; 
+3) public class JoinRowSetRetriveDemo { 
+4) public static void main(String[] args)throws Exception { 
+5) //Class.forName("com.mysql.jdbc.Driver"); 
+6) Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/durgadb
+","root", "root"); 
+7) RowSetFactory rsf=RowSetProvider.newFactory();
+8) 
+9) CachedRowSet rs1=rsf.createCachedRowSet(); 
+10) rs1.setCommand("select * from student"); 
+11) rs1.execute(con); 
+12) 
+13) CachedRowSet rs2=rsf.createCachedRowSet(); 
+14) rs2.setCommand("select * from courses"); 
+15) rs2.execute(con); 
+16) 
+17) JoinRowSet rs=rsf.createJoinRowSet(); 
+18) rs.addRowSet(rs1, 4); 
+19) rs.addRowSet(rs2, 1); 
+20) System.out.println("SID\tSNAME\tSADDR\tCID\tCNAME\tCCOST"); 
+21) System.out.println("---------------------------------------------"); 
+22) while(rs.next()){ 
+23) System.out.print(rs.getString(1)+"\t"); 
+24) System.out.print(rs.getString(2)+"\t"); 
+25) System.out.print(rs.getString(3)+"\t"); 
+26) System.out.print(rs.getString(4)+"\t"); 
+27) System.out.print(rs.getString(5)+"\t"); 
+28) System.out.print(rs.getString(6)+"\n"); 
+29) } 
+30) con.close(); 
+31) } 
+32) } 
+Note: students and courses tables must require in database with a matched column[Join column]
+cid.
+ students courses
+|SID(PK)|SNAME|SADDR|CID| |CID(PK)|CNAME|CCOST|
+addRowSet(RowSet rowset, int columnIdx)
+Adds the given RowSet object to this JoinRowSet object and sets the designated column as the
+match column for the RowSet object.
+
+FilteredRowSet(I):
+==================
+It is the child interface of WebRowSet.
+If we want to filter rows based on some condition then we should go for FilteredRowSet.
+We can define the filter by implementing Predicate interface.
+1) public class EmpSalFilter implements Predicate 
+2) { 
+3) evaluate(Object value,String columnName) 
+4) { 
+5) This method will be called at the time of insertion 
+6) } 
+7) evaluate(Object value,int columnIndex) 
+8) { 
+9) this method will be called at the time of insertion 
+10) } 
+11) evaluate(RowSet rs) 
+12) { 
+13) filtering logic 
+14) } 
+15) } 
+
+We can set Filter to the FilteredRowSet as follows...
+EmployeeSalaryFilter f=new EmployeeSalaryFilter(2500,4000);
+rs.setFilter(f);
+
+Application-15: To Retrieve Records by using FilteredRowSet
+-----------------------------------------------------------
+1) import java.sql.*; 
+2) import javax.sql.*; 
+3) import javax.sql.rowset.*; 
+4) class EmployeeSalaryFilter implements Predicate{ 
+5) float low; 
+6) float high; 
+7) public EmployeeSalaryFilter(float low,float high) { 
+8) this.low=low; 
+9) this.high=high; 
+10) } 
+11) //this method will be called at the time of row insertion 
+12) public boolean evaluate(Object value, String columnName) throws SQLException { 
+13) return false; 
+14) } 
+15) //this method will be called at the time of row insertion 
+16) public boolean evaluate(Object value, int column) throws SQLException { 
+17) return false; 
+18) } 
+19) public boolean evaluate(RowSet rs) { 
+20) boolean eval=false; 
+21) try{ 
+22) FilteredRowSet frs=(FilteredRowSet)rs; 
+23) float esal=frs.getFloat(3); 
+24) if((esal>=low) && (esal<=high)){ 
+25) eval=true; 
+26) }else{ 
+27) eval=false; 
+28) } 
+29) }catch(Exception e){ 
+30) e.printStackTrace(); 
+31) } 
+32) return eval; 
+33) } 
+34) } 
+35) public class FilteredRowSetRetriveDemo { 
+36) public static void main(String[] args)throws Exception { 
+37) RowSetFactory rsf=RowSetProvider.newFactory(); 
+38) FilteredRowSet rs=rsf.createFilteredRowSet(); 
+39) rs.setUrl("jdbc:mysql://localhost:3306/durgadb"); 
+40) rs.setUsername("root"); 
+41) rs.setPassword("root"); 
+42) rs.setCommand("select * from employees"); 
+43) rs.execute(); 
+44) System.out.println("Data Before Filtering"); 
+45) System.out.println("ENO\tENAME\tESAL\tEADDR"); 
+46) System.out.println("------------------------------"); 
+47) while(rs.next()) 
+48) { 
+49) System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getFloat(3)+"\t"+rs.getS
+tring(4)); 
+50) } 
+51) EmployeeSalaryFilter f=new EmployeeSalaryFilter(100,5000); 
+52) rs.setFilter(f); 
+53) rs.beforeFirst(); 
+54) System.out.println("Data After Filtering"); 
+55) System.out.println("ENO\tENAME\tESAL\tEADDR"); 
+56) System.out.println("------------------------------"); 
+57) while(rs.next()) 
+58) { 
+59) System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getFloat(3)+"\t"+rs.getS
+tring(4)); 
+60) } 
+61) rs.close(); 
+62) } 
+63) } 
+
+Event Handling Mechanism for RowSets:
+We can implement event handling for RowSets.
+To perform event handling,we have to implement RowSetListener interface.
+
+1) class RowSetListenerImpl implements RowSetListener 
+2) { 
+3) rowSetChanged(RowSetEvent e) 
+4) { 
+5) this method will be executed whenever total RowSet content changed 
+6) } 
+7) rowChanged(RowSetEvent e) 
+8) { 
+9) this method will be executed whenever any change performed in rows of RowSet like in
+sertion,deletion and updation 
+10) } 
+11) cursorMoved(RowSetEvent e) 
+12) { 
+13) this method will be executed whenever cursor moved from one row to another row 
+14) } 
+15) } 
+We can add RowSetListener to the RowSet by using addRowSetListener() method.
+Eg: rs.addRowSetListener(new RowSetListenerImpl());
+ 
+
+Application-16: To Demonstrate Event Handling by using JdbcRowSet
+-----------------------------------------------------------------
+1) import javax.sql.*; 
+2) import javax.sql.rowset.*; 
+3) class RowSetListenerImpl implements RowSetListener{ 
+4) 
+5) public void rowSetChanged(RowSetEvent event) { 
+6) System.out.println("RowSetChanged"); 
+7) } 
+8) 
+9) public void rowChanged(RowSetEvent event) { 
+10) System.out.println("RowChanged"); 
+11) } 
+12) 
+13) public void cursorMoved(RowSetEvent event) { 
+14) System.out.println("CursorMoved"); 
+15) } 
+16) } 
+17) public class RowSetListenerDemo { 
+18) 
+19) public static void main(String[] args)throws Exception { 
+20) RowSetFactory rsf=RowSetProvider.newFactory(); 
+21) JdbcRowSet rs=rsf.createJdbcRowSet(); 
+22) rs.setUrl("jdbc:mysql://localhost:3306/durgadb"); 
+23) rs.setUsername("root"); 
+24) rs.setPassword("root"); 
+25) rs.setCommand("select * from employees"); 
+26) rs.addRowSetListener(new RowSetListenerImpl()); 
+27) rs.execute(); 
+28) while(rs.next()){ 
+29) System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getFloat(3)+"\t"+rs.getS
+tring(4)); 
+30) } 
+31) rs.moveToInsertRow(); 
+32) rs.updateInt(1, 777); 
+33) rs.updateString(2, "malli"); 
+34) rs.updateFloat(3,9000); 
+35) rs.updateString(4, "Hyd"); 
+36) rs.insertRow(); 
+37) rs.close(); 
+38) } 
+39) } 
+
+

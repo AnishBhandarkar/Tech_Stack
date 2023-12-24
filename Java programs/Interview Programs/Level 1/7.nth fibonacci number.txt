@@ -1,0 +1,26 @@
+package com.practice;
+
+import java.util.Scanner;
+
+public class Prac2 {
+	public static void printFibonacci(int n) {
+		int f1, f2, f3;
+		f1 = 0;
+		f2 = 1;
+		for(int i=1;i<n;i++) {
+			f3 = f1 + f2;
+			f1 = f2;
+			f2 = f3;
+		}
+		System.out.println(f1);
+	}
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter a number : ");
+		int num = sc.nextInt();
+		printFibonacci(num);
+	}
+}
+
+

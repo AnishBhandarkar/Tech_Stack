@@ -1,0 +1,36 @@
+public void insert(int data, int pos){
+		Node node = new Node(data);
+		if(pos==1){
+			node.link = head;
+			if(head==null){
+				tail = node;
+			}
+			head = node;
+			return;
+		}
+		Node temp = head;
+		for(int i=1;i<pos-1;i++){
+			temp = temp.link;
+		}
+		node.link = temp.link;
+		temp.link = node;
+	}
+
+
+public void delete(int pos){
+		if(head==null){
+			System.out.println("Empty List");
+			return;
+		}
+		if(pos==1){
+			if(head.link==null)
+				head = tail = null;
+			else
+				head = head.link;
+		}
+		Node temp = head;
+		for(int i=1;i<pos-1;i++){
+			temp = temp.link;
+		}
+		temp.link = temp.link.link;
+	}

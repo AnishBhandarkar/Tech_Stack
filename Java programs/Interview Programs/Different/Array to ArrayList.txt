@@ -1,0 +1,23 @@
+1) Using Arrays.asList(arr) which will return list view of array
+
+Integer[] arr = {12, 23, 45};
+ArrayList<Integer> list = new ArrayList<Integer>(Arrays.asList(arr)); //we can't pass int[] array as ArrayList cant store primitive types
+System.out.println(list);
+
+2) Using Collections.addAll(list, array)
+
+
+Integer[] arr = {12,23,45};
+ArrayList<Integer> list = new ArrayList<>();
+Collections.addAll(list, arr);
+System.out.println(list);
+
+
+3)Using for loop
+
+int[] arr = {12, 23, 45};
+ArrayList<Integer> list = new ArrayList<Integer>(Arrays.asList());
+for(int a:arr) {
+	list.add(a);
+}
+System.out.println(list);

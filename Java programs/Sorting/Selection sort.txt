@@ -1,0 +1,47 @@
+package com.practice;
+
+import java.util.Arrays;
+
+/*
+
+here in each pass we are selecting
+minimum element and placing it in appropriate position 
+
+*/
+
+public class Practice1{
+	
+	public static void selectionSort(int[] arr) {
+		if(arr.length==0) {
+			System.out.println("Empty");
+			return;
+		}
+		for(int i=0;i<arr.length-1;i++) {
+			int min = i;
+			for(int j = i+1;j<arr.length;j++) {
+				if(arr[j] < arr[min]) {
+					min = j;
+				}
+			}
+			/*if min == i then no need for swapping as it is already in its appropriate position*/
+			if(min != i) {
+				int temp = arr[i];
+				arr[i] = arr[min];
+				arr[min] = temp;
+				
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		int[] arr = {14, 78, 45, 34, 56, 100, 78, -9};
+		
+		selectionSort(arr);
+		System.out.println(Arrays.toString(arr));
+	}
+}
+
+
+
+
+

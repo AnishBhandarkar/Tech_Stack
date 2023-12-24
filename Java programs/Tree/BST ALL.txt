@@ -1,0 +1,216 @@
+import java.util.*;
+
+class BST{
+	Node root;
+
+	private class Node{
+		int data;
+		Node left;
+		Node right;
+
+		Node(int data){
+			this.data = data;
+		}
+	}
+
+	public Node insert(Node root, int data){
+		if(root == null){
+			root = new Node(data);
+		}
+		else if(data < root.data){
+			root.left = insert(root.left, data);
+		}
+		else{
+			root.right = insert(root.right, data);
+		}
+		return root;
+	}
+
+	public void search(Node root, int data){
+		if(root == null){
+			System.out.println("Not found");
+			return;
+		}
+		if(root.data == data){
+			System.out.println("Found");
+			return;
+		}
+		else if(data < root.data){
+			search(root.left, data);
+		}
+		else{
+			search(root.right, data);
+		}
+	}
+
+	public void inOrder(Node root){
+		if(root == null){
+			return;
+		}
+		inOrder(root.left);
+		System.out.print(root.data+" ");
+		inOrder(root.right);
+	}
+
+	public void preOrder(Node root){
+		if(root == null){
+			return;
+		}
+		System.out.print(root.data+" ");
+		preOrder(root.left);
+		preOrder(root.right);
+	}
+
+	public void postOrder(Node root){
+		if(root == null){
+			return;
+		}
+		postOrder(root.left);
+		postOrder(root.right);
+		System.out.print(root.data+" ");
+	}
+
+	public int height(Node root){
+		if(root == null){
+			return 0;
+		}
+		int left = height(root.left);
+		int right = height(root.right);
+		return Math.max(left, right)+1;
+	}
+
+	public int countAllNodes(Node root){
+		if(root == null){
+			return 0;
+		}
+		return countAllNodes(root.left)+countAllNodes(root.right)+1;
+	}
+
+	public int countInternalNodes(Node root){
+		if(root == null){
+			return 0;
+		}
+		if(root.left == null && root.right == null){
+			return 0;
+		}
+		return countInternalNodes(root.left)+countInternalNodes(root.right)+1;
+	}
+
+	public int countLeafNodes(Node root){
+		if(root == null){
+			return 0;
+		}
+		if(root.left == null && root.right == null){
+			return 1;
+		}
+		return countLeafNodes(root.left)+countLeafNodes(root.right);
+	}
+
+	public int getMin(Node root){
+		if(root == null){
+			return 0;
+		}
+		if(root.left == null){
+			return root.data;
+		}
+		while(root.left != null){
+			root = root.left;
+		}
+		return root.data;
+	}
+
+	public int getMax(Node root){
+		if(root == null){
+			return 0;
+		}
+		if(root.right == null){
+			return root.data;
+		}
+		while(root.right != null){
+			root = root.right;
+		}
+		return root.data;
+	}
+
+	public Node inOrderPredecessor(Node root){
+		root = root.left;
+		if(root == null){
+			return null;
+		}
+		while(root.right != null){
+			root = root.right;
+		}
+		return root;
+	}
+
+	public Node inOrderSuccessor(Node root){
+		root = root.right;
+		if(root == null){
+			return null;
+		}
+		while(root.left != null){
+			root = root.left;
+		}
+		return root;
+	}
+
+	public Node delete(Node root, int data){
+		if(root == null){
+			return null;
+		}
+		if(root.left == null && root.right == null){
+			root = null;
+			return root;
+		}
+		if(data < root.data){
+			root.left = delete(root.left, data);
+		}
+		else if(data > root.data){
+			root.right = delete(root.right, data);
+		}
+		else{
+			Node inPre = inOrderPredecessor(root);
+			if(inPre == null){
+				Node inSuc = inOrderSuccessor(root);
+				root.data = inSuc.data;
+				root.right = delete(root.right, inSuc.data);
+				return root;
+			}
+			root.data = inPre.data;
+			root.left = delete(root.left, inPre.data);
+		}
+		return root;
+	}
+
+}
+
+public class Demo{
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		BST t = new BST();
+		t.root = t.insert(t.root, 50);
+		t.root = t.insert(t.root, 45);
+		t.root = t.insert(t.root, 30);
+		t.root = t.insert(t.root, 20);
+		t.root = t.insert(t.root, 70);
+		t.root = t.insert(t.root, 89);
+		t.root = t.insert(t.root, 69);
+		t.inOrder(t.root);
+		System.out.println();
+		t.preOrder(t.root);
+		System.out.println();
+		t.postOrder(t.root);
+		System.out.println();
+		System.out.println("height = "+t.height(t.root));
+		System.out.println("All nodes = "+t.countAllNodes(t.root));
+		System.out.println("Non leaf nodes = "+t.countInternalNodes(t.root));
+		System.out.println("Leaf nodes = "+t.countLeafNodes(t.root));
+		System.out.println("Min = "+t.getMin(t.root));
+		System.out.println("Max = "+t.getMax(t.root));
+		// System.out.println("Enter data to search: ");
+		// t.search(t.root, sc.nextInt());
+		// System.out.println("Enter a data to delete : ");
+		// t.root = t.delete(t.root, sc.nextInt());
+		// t.inOrder(t.root);
+	}
+}

@@ -1,0 +1,254 @@
+Git is a free and open-source version control system, originally created by Linus Torvalds in 2005. Git is distributed.
+
+
+What is version control?
+Version control, also known as source control, is the practice of tracking and managing changes to software code. Version control systems are software tools that help software teams manage changes to source code over time. Version control software keeps track of every modification to the code in a special kind of database. If a mistake is made, developers can turn back the clock and compare earlier versions of the code to help fix the mistake
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Basic commands:
+-------------------
+	
+ls - List directory
+ls-a -List all files in directory
+pwd - present working directory
+
+1)Checking git version:
+-----------------------
+$git --version
+
+2)Getting configuration list:
+-----------------------------
+$git config --list
+
+3)Getting help/info regarding commands:
+---------------------------------------
+$git help <command>  Ex:$git help config
+or
+$git <command> --help
+
+
+4)Initialize an existing directory as a Git repository
+-------------------------------------------------------
+$git init
+
+
+4)Removes .git directory from the current directory 
+-------------------------------------------------------
+$rm -rf .git
+
+
+5)show modified files in working directory, staged for your next commit
+--------------------------------------------------------------------------
+$git status
+
+6)Creating .gitignore file
+---------------------------
+This file is basically created to ignore some of the files that is being tracked by git
+
+In that file, 
+Write all the file name with extension that you want to remove
+Ex: index.html
+
+We can also use regular expressions to ignore all files with a specific extension
+Ex: *.css (Ignore all files that has .css extension)
+
+$touch .gitignore
+
+
+7)Add files to staging area
+-----------------------------
+//Adding individual files
+Ex:
+---
+$git add .gitignore
+$git add index.html
+
+//Adding all files
+$git add -A
+
+After this use git status to see the output
+
+8)Remove files to staging area
+-----------------------------
+//Removing individual files
+Ex:
+---
+$git reset .gitignore
+$git reset index.html
+
+//Removing all files
+$git reset
+
+After this use git status to see the output
+
+8)Deleting a file:
+------------------
+$git rm filename.xyz
+
+
+8)Committing and giving a msg
+------------------------------
+$git commit -m "Initial Commit"
+
+
+9)To display the commit history of a Git repository.
+--------------------------------------------------------
+$git log
+
+When you run git log in the command line, Git will display a list of commits in reverse chronological order, starting from the most recent one.
+
+The git log command shows the following information about each commit:
+git --
+Commit hash: a unique identifier for the commit
+Author and committer: the name and email address of the person who made the commit and the person who applied it to the repository, respectively
+Commit date: the date and time when the commit was made
+Commit message: a brief summary of the changes made in the commit
+By default, the git log command shows a concise summary of the commit history.
+
+
+10)Cloning a remote repository
+------------------------------
+git clone <url_of_repo_u_wanna_clone> <path_in_localhost>
+
+Ex:$ git clone https://github.com/AnishBhandarkar/daneshwari.git Project
+
+
+How to get url of repository from github?
+*Go to github repository
+*Click on code
+*Copy HTTPS path
+
+
+11)Display a list of the remote repositories that your local repository is connected to.
+-----------------------------------------------------------------------------------------
+$ git remote -v
+
+The -v option stands for "verbose," which means that the command will display more detailed information about each remote repository,
+including both the fetch and push URLs.
+
+12)Displays list of all the local and remote branches in a Git repository.
+--------------------------------------------------------------------------
+$git branch -a
+
+will display a list of all the branches that exist in your local repository, as well as all the branches that exist in the remote repositories 
+that your local repository is connected to.
+
+13)shows the lines that have been added, removed, or modified, along with some context lines
+--------------------------------------------------------------------------------------------------
+$git diff
+
+14)Pushing changed code back to github
+---------------------------------------
+> Make required changes.
+> $git diff
+> $git status
+> $git add -A
+> $git commit -m "comment"
+
+Then Push
+> $git pull origin master/main (Check whether it is master or main)
+> $git push origin master/main (Pushes the code to the original main github repository)
+
+
+15)Checking branch
+------------------
+$git branch
+Green color shows the branch u cuurently in
+
+16)Creating a branch
+--------------------
+$git branch branch_name
+
+Note that branch should be created in the same folder within which project files are cloned.
+
+17)Using a branch
+----------------
+$git checkout branch_name
+
+Now in this branch u can do changes in the project, it will not be reflected in main repository.
+
+18)After doing changes in this branch do step 14 till commit.
+
+
+19)After commit push branch to remote repo
+-----------------------------------------------
+$git push -u origin branch_name
+
+-u: Sets up tracking information so that subsequent git pull and git push commands can be used without specifying the remote branch and local branch names.
+origin: Specifies the name of the remote repository that the branch will be pushed to.
+branch_name: Specifies the name of the local branch that will be pushed to the remote repository.
+
+
+20)list all of the branches in a Git repository, both local and remote.
+-----------------------------------------------------------------------
+$git branch -a
+
+-a: Lists both local and remote branches in the repository.
+
+
+21)Merging branch with master
+-------------------------------
+$git checkout main/master
+
+$git branch --merged
+lists all branches that have been merged into the current branch.
+
+$git merge branch_name
+used to merge the changes from the specified branch (branch_name) into the current branch[current branch is selected using checkout command]
+
+$git log
+To check merge was succesfull
+
+$git push origin main/master
+used to push the commits made on the local main or master branch to the remote repository 
+
+
+22)Deleting a branch
+----------------------
+$git branch --merged
+
+$git branch -d branch_name
+used to delete the specified branch from the remote repository.
+
+$git branch -a
+
+$git push origin --delete branch_name
+used to delete the specified branch from the local repository.
+
+$git branch -a
+
+
+
+Note:
+-------
+We cannot create a new Repository on github using git
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

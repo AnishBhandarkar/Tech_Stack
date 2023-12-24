@@ -1,0 +1,71 @@
+package com.practice;
+
+import java.util.ArrayList;
+
+public class Prac2 {
+	
+	ArrayList<Integer> arr = new ArrayList<>();
+	
+	public void heapify(int cur, int size) {
+		int left = 2*cur+1;
+		int right = 2*cur+2;
+		int largest = cur;
+		if(left < size && arr.get(left) > arr.get(largest)) {
+			largest = left;
+		}
+		if(right < size && arr.get(right) > arr.get(largest)) {
+			largest = right;
+		}
+		if(largest != cur) {
+			//swap arr[largest] and arr[cur]
+			int temp = arr.get(largest);
+			arr.set(largest, arr.get(cur));
+			arr.set(cur, temp);
+			
+			heapify(largest, size);
+		}
+	}
+	
+	public void push(int data) {
+		arr.add(data);
+		int i = arr.size() - 1;
+		//if child index is i , then parent index is (i-1)/2
+		while(i > 0 && arr.get((i-1)/2) < arr.get(i)){
+			int temp = arr.get(i);
+			arr.set(i, arr.get((int)Math.ceil(i/2)));
+			arr.set((int)Math.ceil(i/2), temp);
+			i = i / 2;
+		}
+	}
+	
+	public int pop() {
+		if(arr.size()==0) {
+			return -1;
+		}
+		int max = arr.get(0);
+		arr.set(0, arr.get(arr.size()-1));
+		arr.remove(arr.size()-1);
+		heapify(0, arr.size());
+		return max;
+	}
+	
+	public void display() {
+		System.out.println(arr);
+	}
+	
+	public static void main(String[] args) {
+		Prac2 ob = new Prac2();
+		ob.push(12);
+		ob.push(45);
+		ob.push(3);
+		ob.push(6);
+		ob.push(7);
+		ob.push(38);
+		ob.display();
+		System.out.println(ob.pop());
+		ob.display();
+		
+		
+		
+	}
+}

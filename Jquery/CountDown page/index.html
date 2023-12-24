@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="Countdown\css\flipTimer.css">
+    <script src="Countdown\js\jquery.flipTimer.js"></script>
+
+</head>
+
+<body>
+    <div style="text-align: center">
+        <h1 style="color: rgba(126, 5, 239, 0.741)">Coming Soon...</h1>
+        <div class="flipTimer">
+            <div class="days"></div>
+            <div class="hours"></div>
+            <div class="minutes"></div>
+            <div class="seconds"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.flipTimer').flipTimer({
+
+                // count up or countdown
+                direction: 'down',
+
+                // the target date
+                date: 'September 29, 2022 24:00:00',
+
+                // callback works only with direction = "down"
+                callback: function () { alert('times up!'); }
+
+            });
+        });
+    </script>
+</body>
+
+</html>

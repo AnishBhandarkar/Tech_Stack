@@ -1,0 +1,103 @@
+package com.practice;
+import java.util.Arrays;
+import java.util.Scanner;
+// i/p: 1, 2, 3, 2, 4, 5, 4, 6, 5, 5, 6
+public class Practice1{
+	
+	public static void removeDup(int[] arr) {
+		if(arr.length == 0 | arr.length == 1) {
+			System.out.println("Nochange required");
+			return;
+		}
+		//Sorting the array
+		int j = 0;
+		Arrays.parallelSort(arr);
+		for(int i=0;i<arr.length-1;i++) {
+			if(arr[i] != arr[i+1]) {
+				arr[j++] = arr[i];
+			}
+		}
+		arr[j++] = arr[arr.length-1];
+		System.out.println(j);
+		//1 2 3 4 5 6
+		for(int i=0;i<j;i++) {
+			System.out.print(arr[i]+" ");
+		}
+		System.out.println(); 
+		
+		//But actual array contains still dup elements
+		System.out.println(Arrays.toString(arr));//[1, 2, 3, 4, 5, 6, 5, 5, 5, 6, 6]
+		
+		int dupFree[] = new int[j];
+		for(int i=0;i<j;i++) {
+			dupFree[i] = arr[i];
+		}
+		System.out.println(Arrays.toString(dupFree));
+	}
+	
+	public static void main(String[] args) {
+		int[] arr = {1, 2, 3, 2, 4, 5, 4, 6, 5, 5, 6};
+		removeDup(arr);
+	} 
+}
+
+T(n) = O(n logn)
+S(n) = O(j)
+
+============================================================================================================================================================
+
+package com.practice;
+import java.util.*;
+public class Practice1{
+	
+	public static void main(String[] args) {
+		int[] arr = {1, 2, 3, 2, 4, 5, 4, 6, 5, 5, 6};
+		Set<Integer> set = new HashSet<>();
+		for(int ele : arr) {
+			set.add(ele);
+		}
+//		System.out.println(set);
+		
+//		Iterator it = set.iterator();
+//		while(it.hasNext()) {
+//			System.out.print(it.next()+" ");
+//		}
+		
+		Object[] dupFree= set.toArray();
+		System.out.println(Arrays.toString(dupFree));
+
+		//To integer array
+		Integer[] ar = {};
+		ar = hset.toArray(ar);
+		System.out.println(Arrays.toString(ar));
+		
+		
+	} 
+}
+
+
+T(n) = O(n)
+
+
+============================================================================================================================================================
+
+package com.practice;
+import java.util.*;
+public class Practice1{
+	
+	public static void main(String[] args) {
+		int[] arr = {1, 2, 3, 2, 4, 5, 7,4, 6, 5, 5, 6, 7};
+		Map<Integer, Integer> map = new HashMap<>();
+		for(int i=0;i<arr.length;i++) {
+			if(map.containsKey(arr[i])) {
+				map.put(arr[i], map.get(arr[i])+1);
+			}
+			else {
+				map.put(arr[i],1);
+			}
+		}
+		for(Map.Entry mp:map.entrySet()) {
+			System.out.println(mp.getKey()+" "+mp.getValue());
+		}
+	} 
+}

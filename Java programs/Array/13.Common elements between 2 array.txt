@@ -1,0 +1,25 @@
+package com.practice;
+
+import java.util.*;
+
+public class Practice1 {
+
+	public static void main(String[] args) {
+		int[] arr1 = { 12, 23, 45, 58, 90 };
+		int[] arr2 = { 62, 45, 15, 90, 10, 90 };
+		ArrayList<Integer> li = new ArrayList<>();
+		for (int i = 0; i < arr1.length; i++) {
+			for (int j = 0; j < arr2.length; j++) {
+				if (arr1[i] == arr2[j]) {
+					if (li.contains(arr1[i])) {
+						break;
+					} 
+					else {
+						li.add(arr1[i]);
+					}
+				}
+			}
+		}
+		System.out.println(li);
+	}
+}

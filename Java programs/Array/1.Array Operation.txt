@@ -1,0 +1,353 @@
+1)insertStart
+2)insertEnd
+3)insert
+4)deleteStart
+5)deleteEnd
+6)deletePos
+7)deleteNum
+
+
+
+public class Demo {
+	public static int[] insertEnd(int[] arr, int num){
+		int temp[] = arr;
+		arr = new int[arr.length+1];
+		for(int i=0;i<temp.length;i++){
+			arr[i] = temp[i];
+		}
+		arr[temp.length] = num;
+		return arr;
+	}
+	
+	public static int[] insertStart(int[] arr, int num){
+		int[] temp = arr;
+		arr = new int[arr.length+1];
+		arr[0] = num;
+		for(int i=0;i<temp.length;i++){
+			arr[i+1] = temp[i];
+		}
+		return arr;
+	}
+
+	public static int[] insert(int[] arr, int pos, int num){
+		int[] temp = arr;
+		arr = new int[arr.length+1];
+		for(int i=0;i<temp.length;i++){
+			arr[i] = temp[i];
+		}
+		int ind = pos-1;
+		for(int i=arr.length-2;i>=ind;i--){
+			arr[i+1] = arr[i];
+		}
+		arr[ind] = num;
+		return arr;
+	}
+
+	public static int[] deleteStart(int[] arr){
+		int[] temp = arr;
+		arr = new int[arr.length-1];
+		for(int i=0;i<arr.length;i++){
+			arr[i] = temp[i+1];
+		}
+		return arr;
+	}
+
+	public static int[] deleteEnd(int[] arr){
+		int[] temp = arr;
+		arr = new int[arr.length-1];
+		for(int i =0;i<arr.length;i++){
+			arr[i] = temp[i];
+		}
+		return arr;
+	}
+
+	public static int[] deletePos(int[] arr, int pos){
+		int[] temp = arr;
+		arr = new int[arr.length-1];
+		int ind = pos -1;
+		for(int i=ind;i<temp.length-1;i++){
+			temp[i] = temp[i+1];
+		}
+		for(int i =0;i<arr.length;i++){
+			arr[i] = temp[i];
+		}
+		return arr;
+	}
+
+	public static int[] deleteNum(int[] arr, int num){
+		int[] temp = arr;
+		arr = new int[arr.length-1];
+		int ind=0;
+		for(int i=0;i<temp.length;i++){
+			if(num == temp[i]){
+				ind = i;
+			}
+		}
+		if(ind==0){
+			System.out.println("Invalid digit");
+			return null;
+		}
+		else{
+			for(int i=ind;i<temp.length-1;i++){
+			temp[i] = temp[i+1];
+			}
+			for(int i =0;i<arr.length;i++){
+				arr[i] = temp[i];
+			}
+			return arr;
+		}
+		
+	}
+
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Insertion at beginning
++++++++++++++++++++++++++++++
+
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class Practice1{
+	public static int[] insertStart(int[] arr, int num){
+		int[] temp = arr;
+		arr = new int[arr.length+1];
+		arr[0] = num;
+		for(int i=0;i<temp.length;i++){
+			arr[i+1] = temp[i];
+		}
+		return arr;
+	}
+
+
+	public static int[] insertBegin(int[] arr, int ele) {
+		int[] copyArr = arr;
+		arr = new int[arr.length+1];
+		for(int i=0;i<copyArr.length;i++) {
+			arr[i] = copyArr[i];
+		}
+		for(int i=arr.length-2;i>=0;i--) {
+			arr[i+1] = arr[i];
+		}
+		arr[0] = ele;
+		return arr;
+	}
+	
+	public static void main(String[] args) {
+		int size, ele;
+		int[] arr;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter size of the array: ");
+		size = sc.nextInt();
+		arr = new int[size];
+		System.out.printf("Enter %d elements: %n", size);
+		for(int i=0;i<arr.length;i++) {
+			arr[i] = sc.nextInt();
+		}
+		System.out.println(Arrays.toString(arr));
+		System.out.print("Enter the element to be inserted at beginning: ");
+		ele = sc.nextInt();
+		arr=insertBegin(arr, ele);
+		System.out.println(Arrays.toString(arr));
+	}
+	
+}
+
+
+====================================================================================================================
+
+Insertion at end
++++++++++++++++++++++++++++++
+
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class Practice1{
+	public static int[] insertEnd(int[] arr, int ele) {
+		int[] copyArr = arr;
+		arr = new int[arr.length+1];
+		for(int i=0;i<copyArr.length;i++) {
+			arr[i] = copyArr[i];
+		}
+		arr[arr.length-1] = ele;
+		return arr;
+	}
+	
+	public static void main(String[] args) {
+		int size, ele;
+		int[] arr;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter size of the array: ");
+		size = sc.nextInt();
+		arr = new int[size];
+		System.out.printf("Enter %d elements: %n", size);
+		for(int i=0;i<arr.length;i++) {
+			arr[i] = sc.nextInt();
+		}
+		System.out.println(Arrays.toString(arr));
+		System.out.print("Enter the element to be inserted at end: ");
+		ele = sc.nextInt();
+		arr=insertEnd(arr, ele);
+		System.out.println(Arrays.toString(arr));
+	}
+	
+}
+
+====================================================================================================================
+Insertion at given position
++++++++++++++++++++++++++++++
+
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class Practice1{
+	public static int[] insertAtPos(int[] arr, int ele, int pos) {
+		int[] copyArr = arr;
+		arr = new int[arr.length+1];
+		for(int i=0;i<copyArr.length;i++) {
+			arr[i] = copyArr[i];
+		}
+		
+		for(int i=arr.length-2;i>=pos-1;i--) {
+			arr[i+1] = arr[i];
+		}
+		arr[pos-1] = ele;
+		
+		return arr;
+	}
+	
+	public static void main(String[] args) {
+		int size, ele, pos;
+		int[] arr;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter size of the array: ");
+		size = sc.nextInt();
+		arr = new int[size];
+		System.out.printf("Enter %d elements: %n", size);
+		for(int i=0;i<arr.length;i++) {
+			arr[i] = sc.nextInt();
+		}
+		System.out.println(Arrays.toString(arr));
+		System.out.print("Enter the position : ");
+		pos = sc.nextInt();
+		if(pos<=0 || pos>arr.length) {
+			System.out.println("Invalid position");
+			System.exit(0);
+		}
+		System.out.printf("Enter the element to be inserted at position %d: ", pos);
+		ele = sc.nextInt();
+		arr=insertAtPos(arr, ele, pos);
+		System.out.println(Arrays.toString(arr));
+	}
+	
+}
+====================================================================================================================
+Deletion at given position
++++++++++++++++++++++++++++++
+
+public class Practice1{
+	public static int[] deleteAtPos(int[] arr, int pos) {
+		int[] copyArr = arr;
+		arr=new int[arr.length-1];
+		for(int i=pos-1;i<copyArr.length-1;i++) {
+			copyArr[i] = copyArr[i+1];
+		}
+		for(int i=0;i<copyArr.length-1;i++) {
+			arr[i] = copyArr[i];
+		}
+		return arr;
+		
+	}
+	
+	public static void main(String[] args) {
+		int size, ele, pos;
+		int[] arr;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter size of the array: ");
+		size = sc.nextInt();
+		arr = new int[size];
+		System.out.printf("Enter %d elements: %n", size);
+		for(int i=0;i<arr.length;i++) {
+			arr[i] = sc.nextInt();
+		}
+		System.out.println(Arrays.toString(arr));
+		System.out.print("Enter the position : ");
+		pos = sc.nextInt();
+		if(pos<=0 || pos>arr.length) {
+			System.out.println("Invalid position");
+			System.exit(0);
+		}
+		arr=deleteAtPos(arr, pos);
+		System.out.println(Arrays.toString(arr));
+	}
+	
+}
+====================================================================================================================
+Deletion at start
++++++++++++++++++++++++++++++
+
+public class Practice1{
+	public static int[] deleteAtBegin(int[] arr) {
+		int[] copyArr = arr;
+		arr=new int[arr.length-1];
+		for(int i=0;i<copyArr.length-1;i++) {
+			copyArr[i] = copyArr[i+1];
+		}
+		for(int i=0;i<copyArr.length-1;i++) {
+			arr[i] = copyArr[i];
+		}
+		return arr;
+		
+	}
+	
+	public static void main(String[] args) {
+		int size, ele, pos;
+		int[] arr;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter size of the array: ");
+		size = sc.nextInt();
+		arr = new int[size];
+		System.out.printf("Enter %d elements: %n", size);
+		for(int i=0;i<arr.length;i++) {
+			arr[i] = sc.nextInt();
+		}
+		arr=deleteAtBegin(arr);
+		System.out.println(Arrays.toString(arr));
+	}
+	
+}
+
+====================================================================================================================
+Deletion at end
++++++++++++++++++++++++++++++
+public class Practice1{
+	public static int[] deleteAtEnd(int[] arr) {
+		int[] copyArr = arr;
+		arr=new int[arr.length-1];
+		for(int i=0;i<copyArr.length-1;i++) {
+			arr[i] = copyArr[i];
+		}
+		return arr;
+		
+	}
+	
+	public static void main(String[] args) {
+		int size, ele, pos;
+		int[] arr;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter size of the array: ");
+		size = sc.nextInt();
+		arr = new int[size];
+		System.out.printf("Enter %d elements: %n", size);
+		for(int i=0;i<arr.length;i++) {
+			arr[i] = sc.nextInt();
+		}
+		System.out.println(Arrays.toString(arr));
+		arr=deleteAtEnd(arr);
+		System.out.println(Arrays.toString(arr));
+	}
+	
+}

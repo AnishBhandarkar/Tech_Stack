@@ -1,0 +1,74 @@
+package com.mycompany.mavenproject1;
+
+/*
+
+create table book(
+   name varchar(10),
+   file text);
+
+
+*/
+
+import java.io.*;
+import java.util.*;
+import java.sql.*;
+import java.text.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Mavenproject1 {
+
+
+
+    public static void insert() throws Exception {
+        Connection con = ConnectionProvider.createConnection();
+        String filePath = "C:\\Users\\User\\Desktop\\New Text Document.txt";
+        File f = new File(filePath);
+        System.out.println("File inserted from " + f.getAbsolutePath());
+        FileReader fr = new FileReader(f);
+
+        String sql = "insert into book values(?,?)";
+        PreparedStatement pst = con.prepareStatement(sql);
+        pst.setString(1, "Notes");
+        pst.setCharacterStream(2, fr);
+        int count = pst.executeUpdate();
+        if (count != 0) {
+            System.out.println("Record inserted succesfuully");
+        } else {
+            System.out.println("Record not inserted succesfuully");
+        }
+        con.close();
+    }
+
+    public static void retrieve() throws Exception {
+        Connection con = ConnectionProvider.createConnection();
+
+        String sql = "select * from book";
+        PreparedStatement pst = con.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        FileWriter fw = new FileWriter("Important.txt");
+        if (rs.next()) {
+            String name = rs.getString(1);
+            Reader r = rs.getCharacterStream(2);
+            char[] buffer = new char[1024];
+            while (r.read(buffer) > 0) {
+                fw.write(buffer);
+            }
+            System.out.println("File is avialable");
+            fw.flush();
+        }
+        con.close();
+    }
+
+    public static void main(String[] args) {
+        try {
+
+            insert();
+            retrieve();
+        } catch (Exception ex) {
+            Logger.getLogger(Mavenproject1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+}

@@ -1,0 +1,29 @@
+public class Practice1 {
+	public static void main(String[] args) {
+		String str="";
+		int noOfConsonants = 0;
+		String st = "hello earth616";
+		for(int i=0;i<st.length();i++) {
+			char c = st.charAt(i);
+			if(c=='a' ||c=='e' ||c=='i' ||c=='o' ||c=='u' ) {
+				//do nothing
+			}
+			else if(c=='A' ||c=='E' ||c=='I' ||c=='O' ||c=='U' ) {
+//				System.out.print("");
+			}
+			else if(c == ' ') {
+				//do nothing
+			}
+			else if (c>=48 && c<=57) {
+				//do nothing
+			}
+			else {
+				str += c;
+				noOfConsonants++;
+			}
+		}
+		System.out.println("Number of consonants = "+noOfConsonants);
+		System.out.println(str);
+		
+	}
+}

@@ -1,0 +1,210 @@
+package com.practice;
+
+class DLL{
+	Node head;
+	Node tail;
+	
+	private class Node{
+		private int data;
+		private Node next;
+		private Node prev;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void addFirst(int data) {
+		Node node = new Node(data);
+		if(head == null) {
+			head = node;
+			tail = node;
+			return;
+		}
+		node.next = head;
+		head.prev = node;
+		node.prev = null;
+		head = node;
+	}
+	
+	public void addLast(int data) {
+		Node node = new Node(data);
+		if(head == null) {
+			head = node;
+			tail = node;
+			return;
+		}
+		tail.next = node;
+		node.prev = tail;
+		tail = node;
+	}
+	
+	public void add(int data, int pos) {
+		if(pos<1 || pos > count()+1) {
+			System.out.println("Invalid position");
+			return;
+		}
+		Node node = new Node(data);
+		if(pos==1) {
+			addFirst(data);
+			return;
+		}
+		if(pos==count()+1) {
+			addLast(data);
+			return;
+		}
+		Node temp = head;
+		for(int i=1;i<pos-1;i++) {
+			temp = temp.next;
+		}
+		temp.next.prev = node;
+		node.next = temp.next;
+		node.prev=temp;
+		temp.next=node;
+	}
+	
+	public void deleteFirst() {
+		if(head==null) {
+			System.out.println("Empty");
+			return;
+		}
+		if(head.next==null) {
+			head=null;
+			tail=null;
+			return;
+		}
+		Node temp = head;
+		head = head.next;
+		head.prev = null;
+		temp.next = null;
+	}
+	
+	public void deleteLast() {
+		if(head==null) {
+			System.out.println("Empty");
+			return;
+		}
+		if(head.next==null) {
+			head=null;
+			tail=null;
+			return;
+		}
+		Node temp=head;
+		while(temp.next.next != null) {
+			temp = temp.next;
+		}
+		Node ctemp =tail;
+		temp.next = null;
+		tail = tail.prev;
+		ctemp.prev = null; 
+	}
+	
+	public void delete(int pos) {
+		if(pos<1 || pos > count()) {
+			System.out.println("Invalid position");
+			return;
+		}
+		if(pos==1) {
+			deleteFirst();
+		}
+		if(pos==count()) {
+			deleteLast();
+			return;
+		}
+		Node temp = head;
+		for(int i = 1;i<pos-1;i++) {
+			temp = temp.next;
+		}
+		Node ctemp=temp.next;
+		temp.next = ctemp.next;
+		ctemp.next.prev = temp;
+		ctemp.next=null;
+		ctemp.prev = null;
+	}
+	
+	public void displayForward() {
+		if(head==null) {
+			System.out.println("Empty");
+			return;
+		}
+		Node temp = head;
+		while(temp!=null) {
+			System.out.print(temp.data+" --> ");
+			temp = temp.next;
+		}
+		System.out.println("null");
+	}
+	
+	public void displayBackward() {
+		if(tail==null) {
+			System.out.println("Empty");
+			return;
+		}
+		Node temp = tail;
+		while(temp != null) {
+			System.out.print(temp.data+" --> ");
+			temp = temp.prev;
+		}
+		System.out.println("null");
+	}
+	
+	public int count() {
+		int size=0;
+		if(head==null) {
+			return 0;
+		}
+		Node temp = head;
+		while(temp!=null) {
+			size++;
+			temp = temp.next;
+		}
+		return size;
+	}
+
+	public boolean isPalindrome(){
+		if(head == null || head.next == null){
+			return true;
+		}
+		int mid = (int)Math.ceil(size()/2.0);
+		Node temp1 = head;
+		Node temp2 = tail;
+		for(int i=0;i<mid;i++){
+			if(temp1.data != temp2.data){
+				return false;
+			}
+			temp1 = temp1.next;
+			temp2 = temp2.prev;
+		}
+		return true;
+	}
+
+}
+
+public class Practice1{
+	public static void main(String[] args) {
+		DLL li = new DLL();
+//		System.out.println(li.count());
+		li.addLast(200);
+//		li.deleteFirst();
+		li.addFirst(10);
+		li.addFirst(90);
+		li.addFirst(80);
+//		li.displayForward();
+//		li.displayBackward();
+		li.addLast(100);
+//		li.add(555, 6);
+		li.displayForward();
+//		li.deleteFirst();
+		li.delete(6);
+		li.displayForward();
+		System.out.println(li.count());
+		
+		
+	}
+	
+}
+
+
+
+
+

@@ -1,0 +1,67 @@
+package com.practice;
+
+import java.util.Arrays;
+
+/*
+Partition Algorithm:
+select last element as pivot
+And using partition algo we will place pivot in such a position
+such that all data to the left of pivot as less than or equal to pivot and
+all data to the right of pivot are greater than pivot
+
+Partition algorithm return the index of sorted pivot element
+
+then apply recursion on left of pivot and right of pivot
+
+*/
+
+public class Practice1{
+
+	
+	public static int partition(int[] arr, int from, int to) {
+		int pivot = arr[to];
+		int temp;
+		int i = -1;//Used to point end index of left list of pivot
+		for(int j = 0;j<to;j++) {
+			if(arr[j] < pivot) {
+				i++;
+				temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+		i++;
+		//dont swap arr[i] and pivot as pivot is a variable
+		temp = arr[i];
+		arr[i] = arr[to];
+		arr[to] = temp;
+		
+		return i;
+	}
+	
+	public static void quickSort(int[] arr, int from, int to) {
+		if(arr.length ==0) {
+			return;
+		}
+		//If there is atleast 2 elements
+		int i;
+		if(from < to) {
+			i = partition(arr, from, to);
+			quickSort(arr, from, i-1);
+			quickSort(arr, i+1, to);
+		}
+	}
+
+	
+	public static void main(String[] args) {
+		int[] arr = {14, 78, 45, 34, 56, 100, 70, -9, 66};
+		
+		quickSort(arr, 0, arr.length-1);
+		System.out.println(Arrays.toString(arr));
+	}
+}
+
+
+
+
+

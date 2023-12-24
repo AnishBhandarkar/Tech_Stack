@@ -1,0 +1,66 @@
+package com.practice;
+
+import java.util.*;
+
+/*
+ HeapSort(A){
+ 1.BuildHeap(A);
+ 2.for(A.length-1 to 1){
+   swap(A[0], A[i])
+   Heapify(A, 0)
+   }
+ }
+ 
+ 
+ */
+
+
+
+public class Practice1{
+	
+	public static void heapify(ArrayList<Integer> arr, int cur, int size) {
+		int left = 2*cur+1;
+		int right = 2*cur+2;
+		int largest = cur;
+		if(left < size && arr.get(left) > arr.get(largest)) {
+			largest = left;
+		}
+		if(right < size && arr.get(right) > arr.get(largest)) {
+			largest = right;
+		}
+		if(largest != cur) {
+			//swap arr[largest] and arr[cur]
+			int temp = arr.get(largest);
+			arr.set(largest, arr.get(cur));
+			arr.set(cur, temp);
+			
+			heapify(arr, largest, size);
+		}
+	}
+	
+	public static void buildHeap(ArrayList<Integer> arr) {
+		for(int i = arr.size()/2-1;i>=0;i--) {
+			heapify(arr, i, arr.size());
+		}
+		System.out.println(arr);
+	}
+	
+	public static void heapSort(ArrayList<Integer> arr) {
+		buildHeap(arr);
+		
+		for(int i = arr.size()-1;i>0;i--) {
+			//swap arr[i] and arr[0]
+			int temp = arr.get(0);
+			arr.set(0, arr.get(i));
+			arr.set(i, temp);
+			heapify(arr, 0, i);
+		}
+		System.out.println(arr);
+		
+	}
+	public static void main(String[] args) {
+		ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(14, 78, 45, 34, 56, 100, 78, -9));
+		heapSort(arr);
+		System.out.println(arr);
+	}
+}

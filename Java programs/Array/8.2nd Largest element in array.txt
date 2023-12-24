@@ -1,0 +1,41 @@
+1)T(n) = O(n logn)
+public static int secondLargest(int[] arr) {
+		Arrays.sort(arr);
+		for(int i=arr.length-2;i>=0;i--) {
+			if(arr[i] != arr[arr.length-1])
+				return arr[i];
+		}
+		return -1; // [10,10,10] then no 2nd largest element
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+T(n) = O(n)
+
+public class Practice1 {
+	public static int secondLargest(int[] arr) {
+		int first, second;
+		first = second = Integer.MIN_VALUE;
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i] > first) {
+				second = first;
+				first = arr[i];
+			}
+			else if(arr[i] > second && arr[i] != first) {
+				second = arr[i];
+			}
+		}
+		if(second==Integer.MIN_VALUE)
+			return -1;
+		else {
+			return second;
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		int[] arr = {4,4,4};
+		int n = secondLargest(arr);
+		System.out.println(n);	
+	}
+}

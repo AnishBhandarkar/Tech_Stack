@@ -1,0 +1,64 @@
+package com.mycompany.mavenproject1;
+
+import java.io.*;
+import java.util.*;
+import java.sql.*;
+import java.text.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+//person(name, file)
+
+public class Mavenproject1 {
+
+    public static void insert() throws Exception {
+        Connection con = ConnectionProvider.createConnection();
+        String filePath = "C:\\Users\\User\\Videos\\New folder\\thor.mp4";
+        File f = new File(filePath);
+        FileInputStream fis = new FileInputStream(f);
+
+        String sql = "insert into person values(?,?)";
+        PreparedStatement pst = con.prepareStatement(sql);
+        pst.setString(1, "Elizebeth");
+        pst.setBinaryStream(2, fis);
+        int count = pst.executeUpdate();
+        if (count != 0) {
+            System.out.println("Record inserted succesfuully");
+        } else {
+            System.out.println("Record not inserted succesfuully");
+        }
+        con.close();
+    }
+
+    public static void retrieve() throws Exception {
+        Connection con = ConnectionProvider.createConnection();
+
+        String sql = "select * from person";
+        PreparedStatement pst = con.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        FileOutputStream os = new FileOutputStream("RuneKingthor.mp4");
+        if (rs.next()) {
+            String name = rs.getString(1);
+            InputStream is = rs.getBinaryStream(2);
+            byte[] buffer = new byte[2048];
+            while (is.read(buffer) > 0) {
+                os.write(buffer);
+            }
+            os.flush();
+            System.out.println("Video is available in RuneKingThor");
+        }
+        con.close();
+    }
+
+    public static void main(String[] args) {
+        try {
+
+            insert();
+            retrieve();
+        } catch (Exception ex) {
+            Logger.getLogger(Mavenproject1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+}

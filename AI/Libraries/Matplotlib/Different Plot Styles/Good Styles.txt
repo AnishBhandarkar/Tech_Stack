@@ -1,0 +1,17 @@
+plt.style.available
+
+1) classic
+
+2) dark_background
+
+3) fast
+
+4) fivethirtyeight *
+
+5) ggplot
+
+6) seaborn-v0_8 *
+
+7) seaborn-v0_8-dark
+
+plt.style.use('ggplot')

@@ -1,0 +1,39 @@
+import java.util.Arrays;
+
+/*
+
+* In First loop arr.length -1 because,
+  if we sort arr.length-1 elements then the last element
+  automatically gets its required position
+
+* In the second loop condition, 
+ -1 because to prevent ArrayIndexOutOfBoundsException
+ -i because on every pass largest element bubbles at end of array,
+ so again comparing with that part is unnecessary
+ */
+
+public class Practice1{
+	
+	public static void bubbleSort(int[] arr) {
+		if(arr.length==0 || arr.length==1) {
+			return;
+		}
+		int temp = 0;
+		for(int i = 0;i<arr.length-1;i++) {
+			for(int j=0;j<arr.length-1-i;j++) {
+				if(arr[j] > arr[j+1]) {
+					temp = arr[j];
+					arr[j] = arr[j+1];
+					arr[j+1] = temp;
+				}
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		int[] arr = {14, 78, 45, 34, 56, 100, 78, -9};
+		
+		bubbleSort(arr);
+		System.out.println(Arrays.toString(arr));
+	}
+}

@@ -1,0 +1,109 @@
+//selection sort
+
+def selectionsort(arr):
+    if len(arr) < 2:
+        print("Sorted already")
+        return
+    n = len(arr)
+    for i in range(0, n-1):
+        min = i
+        for j in range(i+1, n):
+            if(arr[j] < arr[min]):
+                min = j
+        if(min != i):
+            arr[i], arr[min] = arr[min], arr[i]
+                
+
+
+
+
+size = int(input("Enter size of array : "))
+arr = [];
+for i in range(size):
+    arr.append(int(input("Enter array element : ")))
+
+selectionsort(arr)
+print(arr)
+
+========================================================================================
+
+//Insertion sort
+
+def insertionsort(arr):
+    if len(arr) < 2:
+        print("Sorted already")
+        return
+    n = len(arr)
+    for i in range(0, n):
+        temp = arr[i]
+        j = i-1;
+        while(j >= 0 and arr[j] > temp):
+            arr[j+1] = arr[j];
+            j -= 1
+        arr[j+1] = temp
+        
+                
+
+
+
+
+size = int(input("Enter size of array : "))
+arr = [];
+for i in range(size):
+    arr.append(int(input("Enter array element : ")))
+
+insertionsort(arr)
+print(arr)
+
+========================================================================================
+//Merge sort
+
+
+def merge(arr, left, right):
+    i=j=k=0
+    while(i < len(left) and j < len(right)):
+        if(left[i] < right[j]):
+            arr[k] = left[i]
+            k+=1
+            i+=1
+        else:
+            arr[k] = right[j]
+            k+=1
+            j+=1
+
+    while(i < len(left)):
+        arr[k] = left[i]
+        k+=1
+        i+=1
+
+    while(j < len(right)):
+        arr[k] = right[j]
+        k+=1
+        j+=1
+                
+
+def mergesort(arr):
+    if(len(arr) < 2):
+        return
+    mid = len(arr) // 2
+    left = []
+    right = []
+    for i in range(0, mid):
+        left.append(arr[i])
+    for i in range(mid, len(arr)):
+        right.append(arr[i])
+
+    mergesort(left)
+    mergesort(right)
+    merge(arr, left, right)
+
+
+size = int(input("Enter size of array : "))
+arr = [];
+for i in range(size):
+    arr.append(int(input("Enter array element : ")))
+
+mergesort(arr)
+print(arr)
+
+========================================================================================
